@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+
+  <welcome-file-list>
+    <welcome-file>index</welcome-file>
+  </welcome-file-list>
+
+  <!-- 配置Spring字符编码过滤器 -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!--实现RESTful风格，配置过滤器-->
+  <filter>
+    <filter-name>hiddenHttpMethodFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>hiddenHttpMethodFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- Spring MVC 核心控制器 DispatcherServlet 配置开始 -->
+  <!--配置springmvc DispatcherServlet-->
+  <servlet>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!--当值为正数或零时：Servlet容器先加载数值小的servlet，再依次加载其他数值大的servlet.-->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <!--设置是否启用异步支持-->
+    <async-supported>true</async-supported>
+  </servlet>
+
+  <!-- 拦截设置 -->
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <!--Servlet拦截匹配规则可以自已定义，当映射为@RequestMapping("/user/add")时，为例,拦截哪种URL合适？ -->
+    <!--1、拦截*.do、*.htm， 例如：/user/add.do,这是最传统的方式，最简单也最实用。不会导致静态文件（jpg,js,css）被拦截。 -->
+    <!--2、拦截/，例如：/user/add,可以实现现在很流行的RESTful风格。很多互联网类型的应用很喜欢这种风格的URL。
+           弊端：会导致静态文件（jpg,js,css）被拦截后不能正常显示。 -->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <!-- Spring MVC 核心配置结束 -->
+
+  <!-- 第一种静态文件映射方式，激活Tomcat的defaultServlet来处理静态文件 -->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/static/**</url-pattern>
+  </servlet-mapping>
+
+  <!-- session 超时时间(分钟) -->
+  <session-config>
+    <session-timeout>120</session-timeout>
+  </session-config>
+</web-app>

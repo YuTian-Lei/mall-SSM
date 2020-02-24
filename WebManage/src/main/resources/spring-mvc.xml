@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <import resource="spring-service.xml"/>
+  <!-- 1.扫描web相关的bean -->
+  <context:component-scan base-package="com.easycode.mmall.controller"/>
+
+  <!-- 2.静态资源默认servlet配置-->
+  <!--<mvc:resources location="/static/" mapping="/static/**"/> -->
+  <mvc:default-servlet-handler/>
+
+  <!-- 3.定义视图解析器 -->
+  <bean id="internalResourceViewResolver"
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/"/>
+    <property name="suffix" value=".jsp"/>
+    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    <property name="order" value="1"/>
+  </bean>
+
+  <!-- 4.定义异常处理器 -->
+  <bean id="exceptionResolver" class="com.easycode.mmall.exception.MyExceptionResolver"/>
+
+  <!--5.拦截器的注册-->
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/**"/>
+      <!--<mvc:exclude-mapping path="/person/add"/>-->
+      <bean class="com.easycode.mmall.interceptors.MyIntercepter"/>
+    </mvc:interceptor>
+  </mvc:interceptors>
+
+  <!--6.自定义消息转换器的编码,解决后台传输json回前台时，中文乱码问题 -->
+  <bean id="stringHttpMessageConverter"
+      class="org.springframework.http.converter.StringHttpMessageConverter">
+    <property name="supportedMediaTypes">
+      <list>
+        <value>text/plain;charset=UTF-8</value>
+        <value>test/html;charset=UTF-8</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- 7.配置json转换器 -->
+  <bean id="jsonMessageConverters"
+      class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    <property name="supportedMediaTypes">
+      <list>
+        <value>application/json;charset=UTF-8</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- 8.开启SpringMVC注解模式 -->
+  <mvc:annotation-driven>
+    <mvc:message-converters>
+      <ref bean="stringHttpMessageConverter"/>
+      <ref bean="jsonMessageConverters"/>
+    </mvc:message-converters>
+  </mvc:annotation-driven>
+
+  <!--9.文件上传-->
+  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="10485760"/>
+    <property name="maxInMemorySize" value="4096"/>
+    <property name="defaultEncoding" value="UTF-8"/>
+  </bean>
+</beans>

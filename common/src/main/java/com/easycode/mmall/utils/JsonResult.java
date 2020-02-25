@@ -25,14 +25,21 @@ public class JsonResult implements Serializable {
 
     /**
      * 默认是成功的
+     * resultCode : 0-失败,1-成功
+     * data:传到前台的数据
+     * url:需要跳转的URI
+     * message:成功的消息,如果要显示的话
+     * errormsg:失败的消息
+     * errorCode:失败代码,用于restAPI
+     * validateFlag:前台校验
      */
-    private int resultCode = 1;// 0-失败,1-成功
-    private Map<String, Object> data;// 传到前台的数据
-    private String url;// 需要跳转的URI
-    private String message;// 成功的消息,如果要显示的话
-    private String errormsg;// 失败的消息
-    private String errorCode;// 失败代码,用于restAPI
-    private boolean validateFlag; // 前台校验
+    private int resultCode = 1;
+    private Map<String, Object> data;
+    private String url;
+    private String message;
+    private String errormsg;
+    private String errorCode;
+    private boolean validateFlag;
 
     public JsonResult() {
     }

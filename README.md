@@ -20,3 +20,7 @@
 - AOP日志记录
 - HikariCP和Mybatis整合
 - logback接管catalina.out并按日轮转
+- 集成Redis
+- 集成邮件服务
+- 集成短信发送
+- 集成swagger-2

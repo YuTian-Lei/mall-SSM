@@ -12,10 +12,11 @@
 - easyPoi（更简单的操作word/excel等等）
 - 统一响应结果封装及生成工具
 - 统一异常处理
+- 整合logback日志框架
 
 ## 待集成记录
-- 整合logback日志框架
 - 开启mybatis日志sql打印
 - 整合shiro进行权限控制
 - AOP日志记录
 - HikariCP和Mybatis整合
+- logback接管catalina.out并按日轮转

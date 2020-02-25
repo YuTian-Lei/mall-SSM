@@ -7,16 +7,13 @@
 <!-- debug 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
-  <!-- 动态日志级别 -->
-  <jmxConfigurator/>
-
   <!-- 定义日志文件 输出位置 -->
-  <property name="log.home_dir" value="/usr/local/springboot/log"/>
-  <property name="log.app_name" value="http-demo"/>
+  <property name="log.home_dir" value="D:/usr/local/logs/mmall"/>
+  <property name="log.app_name" value="mmall"/>
   <!-- 日志最大的历史 30天 -->
-  <property name="log.maxHistory" value="30"/>
+  <property name="log.maxHistory" value="10"/>
   <property name="log.level" value="debug"/>
-  <property name="log.maxSize" value="5MB" />
+  <property name="log.maxSize" value="5MB"/>
 
   <!-- ConsoleAppender 控制台输出日志 -->
   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -27,18 +24,23 @@
         %d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] %logger - %msg%n
       </pattern>
     </encoder>
+    <!-- 过滤掉 TRACE 级别的日志-->
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>INFO</level>
+      <level>TRACE</level>
     </filter>
   </appender>
 
   <!--设置一个向上传递的appender,所有级别的日志都会输出-->
-  <appender name="mmall" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>/developer/tomcat/logs/mmall.log</File>
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 过滤掉 TRACE 级别的日志-->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>TRACE</level>
+    </filter>
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-      <fileNamePattern>/developer/tomcat/logs/%d{yyyy-MM-dd}/mmall-%i.log</fileNamePattern>
+      <fileNamePattern>
+        ${log.home_dir}/logs/%d{yyyy-MM-dd}/${log.app_name}-%i.log
+      </fileNamePattern>
       <append>true</append>
-      <maxHistory>10</maxHistory>
       <maxHistory>${log.maxHistory}</maxHistory>
       <MaxFileSize>${log.maxSize}</MaxFileSize>
     </rollingPolicy>
@@ -46,6 +48,8 @@
       <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger - %msg%n</pattern>
     </encoder>
   </appender>
+
+  <!--分隔线,以上为具体使用Appender,下面为展示示例,不同级别的日志保存文件-->
 
   <!-- ERROR级别日志 -->
   <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 RollingFileAppender -->
@@ -159,34 +163,34 @@
     </encoder>
   </appender>
 
+  <!--logger,不指定appender时会继承root节点中定义的appender,相关日志会输出到root节点的appender-->
 
   <!--org.springframework.web包下的类的日志输出-->
+  <!--如果没有设置 additivity="false" ,就会导致一条日志在控制台输出两次的情况-->
+  <!--additivity表示要不要使用rootLogger配置的appender进行输出-->
   <logger name="org.springframework.web" additivity="false" level="WARN">
-    <appender-ref ref="WARN"/>
-  </logger>
-  <!--com.zgd包下的类的日志输出-->
-  <logger name="com.zgd" additivity="false" level="DEBUG" >
-    <appender-ref ref="app" />
-    <appender-ref ref="ERROR" />
-    <!--打印控制台-->
-    <appender-ref ref="CONSOLE" />
+    <appender-ref ref="FILE"/>
   </logger>
 
-  <logger name="com.easycode.mmall" additivity="false" level="INFO">
-    <appender-ref ref="mmall"/>
+  <!--com.zgd包下的类的日志输出-->
+  <logger name="com.zgd" additivity="false" level="DEBUG">
+    <appender-ref ref="FILE"/>
+    <!--打印控制台-->
     <appender-ref ref="CONSOLE"/>
   </logger>
 
-  <!--mybatis log日志-->
-  <logger name="com.easycode.mmall.dao" level="DEBUG"/>
+
+  <!--mybatis log日志,查看mybatis sql执行语句-->
+  <logger name="com.easycode.mmall.dao" additivity="false" level="DEBUG">
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="CONSOLE"/>
+  </logger>
 
   <!-- root级别   DEBUG -->
-  <root>
-    <!-- 打印debug级别日志及以上级别日志 -->
-    <level value="DEBUG"/>
+  <root level="DEBUG">
     <!-- 控制台输出 -->
     <appender-ref ref="CONSOLE"/>
-    <appender-ref ref="ERROR"/>
+    <appender-ref ref="FILE"/>
     <!-- 不管什么包下的日志都输出文件 -->
     <!--<appender-ref ref="INFO"/>-->
     <!--<appender-ref ref="WARN"/>-->

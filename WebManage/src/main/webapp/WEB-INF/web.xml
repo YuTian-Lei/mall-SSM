@@ -60,6 +60,24 @@
            弊端：会导致静态文件（jpg,js,css）被拦截后不能正常显示。 -->
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+
+  <!-- 配置swagger-bootstrap-ui的url请求路径-->
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <url-pattern>*.htm</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <url-pattern>/v2/api-docs</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <url-pattern>/swagger-resources</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <url-pattern>/v2/api-docs-ext</url-pattern>
+  </servlet-mapping>
   <!-- Spring MVC 核心配置结束 -->
 
   <!-- 第一种静态文件映射方式，激活Tomcat的defaultServlet来处理静态文件 -->

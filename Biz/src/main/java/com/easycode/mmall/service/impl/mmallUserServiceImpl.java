@@ -1,6 +1,5 @@
 package com.easycode.mmall.service.impl;
 
-
 import com.easycode.mmall.dao.mmallUserMapper;
 import com.easycode.mmall.model.mmallUser;
 import com.easycode.mmall.service.mmallUserService;
@@ -15,7 +14,7 @@ import javax.annotation.Resource;
 /**
  *
  * @author CodeGenerator
- * @date 2020/02/24
+ * @date 2020/02/26
  */
 @Service
 @Transactional(rollbackFor = Exception.class)

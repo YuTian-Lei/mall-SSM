@@ -24,6 +24,8 @@ public class mmallUser extends BasePageEntity {
 
     private String email;
 
+    private String salt;
+
     private String phone;
 
     /**
@@ -119,6 +121,20 @@ public class mmallUser extends BasePageEntity {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return salt
+     */
+    public String getSalt() {
+        return salt;
+    }
+
+    /**
+     * @param salt
+     */
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     /**

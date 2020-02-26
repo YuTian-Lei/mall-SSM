@@ -9,6 +9,7 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="question" jdbcType="VARCHAR" property="question" />
     <result column="answer" jdbcType="VARCHAR" property="answer" />

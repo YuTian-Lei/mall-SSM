@@ -13,14 +13,14 @@
 - 统一响应结果封装及生成工具
 - 统一异常处理
 - 整合logback日志框架
+- 集成swagger-2 
+- 开启mybatis日志sql打印
+- 整合shiro进行权限控制(部分完成)
 
 ## 待集成记录
-- 开启mybatis日志sql打印
-- 整合shiro进行权限控制
 - AOP日志记录
 - HikariCP和Mybatis整合
 - logback接管catalina.out并按日轮转
 - 集成Redis
 - 集成邮件服务
 - 集成短信发送
-- 集成swagger-2

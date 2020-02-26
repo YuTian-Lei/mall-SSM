@@ -78,6 +78,30 @@
     <property name="defaultEncoding" value="UTF-8"/>
   </bean>
 
-  <!-- 加载SwaggerConfig  类名改成自己创建的-->
+  <!-- 10.加载SwaggerConfig  类名改成自己创建的-->
   <bean class="com.easycode.mmall.swagger.SwaggerConfig"/>
+
+  <!--11.整合shiro权限管理框架-->
+  <!-- 安全管理器 -->
+  <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+    <property name="realm" ref="CustomRealm"/>
+  </bean>
+  <!-- 自定义域 -->
+  <bean id="CustomRealm" class="com.easycode.mmall.shiro.CustomRealm"/>
+
+  <!-- Shiro的web过滤器 -->
+  <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <property name="securityManager" ref="securityManager"></property>
+    <property name="unauthorizedUrl" value="/index.jsp"></property>
+    <property name="filterChainDefinitions">
+      <value>
+        /index.jsp = anon
+        /unauthorized.jsp = anon
+        /user/checkLogin = anon
+        /user/queryUserInfo = authc
+        /user/logout = anon
+        /pubApi/** = anon
+      </value>
+    </property>
+  </bean>
 </beans>

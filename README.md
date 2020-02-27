@@ -15,7 +15,9 @@
 - 整合logback日志框架
 - 集成swagger-2 
 - 开启mybatis日志sql打印
-- 整合shiro进行权限控制(部分完成)
+- 整合shiro进行用户登录验证
+- 整合HibernateValidator做参数校验
+
 
 ## 待集成记录
 - AOP日志记录

@@ -64,7 +64,7 @@
   </bean>
 
   <!-- 8.开启SpringMVC注解模式 -->
-  <mvc:annotation-driven>
+  <mvc:annotation-driven validator="validator">
     <mvc:message-converters>
       <ref bean="stringHttpMessageConverter"/>
       <ref bean="jsonMessageConverters"/>
@@ -72,7 +72,8 @@
   </mvc:annotation-driven>
 
   <!--9.文件上传-->
-  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+  <bean id="multipartResolver"
+      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     <property name="maxUploadSize" value="10485760"/>
     <property name="maxInMemorySize" value="4096"/>
     <property name="defaultEncoding" value="UTF-8"/>
@@ -87,21 +88,32 @@
     <property name="realm" ref="CustomRealm"/>
   </bean>
   <!-- 自定义域 -->
-  <bean id="CustomRealm" class="com.easycode.mmall.shiro.CustomRealm"/>
+  <bean id="CustomRealm" class="com.easycode.mmall.shiro.CustomRealm">
+    <property name="credentialsMatcher" ref="credentialsMatcher"/>
+  </bean>
+  <!-- 自定义凭证(密码)匹配器 -->
+  <bean id="credentialsMatcher" class="com.easycode.mmall.shiro.CustomCredentialsMatcher"/>
 
   <!-- Shiro的web过滤器 -->
   <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
     <property name="securityManager" ref="securityManager"></property>
-    <property name="unauthorizedUrl" value="/index.jsp"></property>
+    <!--登录页的url-->
+    <property name="loginUrl" value="login.html"/>
+    <!--未认证的跳转页面-->
+    <property name="unauthorizedUrl" value="index.jsp"/>
     <property name="filterChainDefinitions">
       <value>
+        <!--首页不需要拦截-->
         /index.jsp = anon
-        /unauthorized.jsp = anon
-        /user/checkLogin = anon
-        /user/queryUserInfo = authc
-        /user/logout = anon
-        /pubApi/** = anon
+        <!--登陆不需要拦截-->
+        /login/** = anon
+        /** = authc
       </value>
     </property>
+  </bean>
+  <!--12.整合HibernateValidator-->
+  <bean id="validator"
+      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
   </bean>
 </beans>

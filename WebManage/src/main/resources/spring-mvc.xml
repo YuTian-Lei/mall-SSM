@@ -15,7 +15,7 @@
 
   <import resource="spring-service.xml"/>
   <!-- 1.扫描web相关的bean -->
-  <context:component-scan base-package="com.easycode.mmall.controller"/>
+  <context:component-scan base-package="com.easycode.mmall"/>
 
   <!-- 2.静态资源默认servlet配置-->
   <!--<mvc:resources location="/static/" mapping="/static/**"/> -->

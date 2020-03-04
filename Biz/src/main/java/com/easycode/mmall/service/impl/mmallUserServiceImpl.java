@@ -22,4 +22,26 @@ public class mmallUserServiceImpl extends AbstractService<mmallUser> implements 
     @Resource
     private mmallUserMapper mmallUserMapper;
 
+    @Override
+    public int checkUsername(String username) {
+        mmallUser user = new mmallUser();
+        user.setUsername(username);
+        return mmallUserMapper.selectCount(user);
+    }
+
+    @Override
+    public int checkEmail(String email) {
+        mmallUser user = new mmallUser();
+        user.setUsername(email);
+        return mmallUserMapper.selectCount(user);
+    }
+
+    @Override
+    public int checkAnswer(String username, String question, String answer) {
+        mmallUser user = new mmallUser();
+        user.setUsername(username);
+        user.setQuestion(question);
+        user.setAnswer(answer);
+        return  mmallUserMapper.selectCount(user);
+    }
 }

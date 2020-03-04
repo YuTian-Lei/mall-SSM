@@ -11,4 +11,9 @@ import com.easycode.mmall.core.Service;
  */
 public interface mmallUserService extends Service<mmallUser> {
 
+  int checkUsername(String username);
+
+  int checkEmail(String email);
+
+  int checkAnswer(String username,String question,String answer);
 }

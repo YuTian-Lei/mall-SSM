@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TokenCache {
 
+  public static  final String TOKEN_PREFIX = "token_";
+
   //LRU算法
   private static LoadingCache<String, String> localCache =
       CacheBuilder.newBuilder().initialCapacity(1000).maximumSize(10000).expireAfterAccess(12,

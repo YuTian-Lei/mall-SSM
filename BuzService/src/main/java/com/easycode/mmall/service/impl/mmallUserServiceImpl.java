@@ -32,7 +32,7 @@ public class mmallUserServiceImpl extends AbstractService<mmallUser> implements 
     @Override
     public int checkEmail(String email) {
         mmallUser user = new mmallUser();
-        user.setUsername(email);
+        user.setEmail(email);
         return mmallUserMapper.selectCount(user);
     }
 

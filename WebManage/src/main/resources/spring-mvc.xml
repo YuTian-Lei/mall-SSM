@@ -107,6 +107,12 @@
         /index.jsp = anon
         <!--登陆不需要拦截-->
         /login/** = anon
+        /manage/user/** = anon
+        <!--swagger2-->
+        /swagger-resources = anon
+        /v2/api-docs = anon
+        /v2/api-docs-ext = anon
+        /doc.html = anon
         /** = authc
       </value>
     </property>

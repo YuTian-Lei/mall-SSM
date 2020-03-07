@@ -14,7 +14,7 @@
   <dependencies>
     <dependency>
       <groupId>com.easycode</groupId>
-      <artifactId>Biz</artifactId>
+      <artifactId>BuzService</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>

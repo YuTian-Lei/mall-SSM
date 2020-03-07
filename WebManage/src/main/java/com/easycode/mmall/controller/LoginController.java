@@ -74,8 +74,8 @@ public class LoginController {
     mmallUser.setSalt(saveSalt);
     byte[] hashPassword = DigestUtils.sha1(RegisterVO.getPassword().trim().getBytes(), salt, 1024);
     String passWord = EncodeUtils.encodeHex(hashPassword);
-    mmallUser.setPassword(passWord);
     //密码加密结束
+    mmallUser.setPassword(passWord);
     mmallUser.setUsername(RegisterVO.getUsername());
     mmallUser.setQuestion(RegisterVO.getQuestion());
     mmallUser.setAnswer(RegisterVO.getAnswer());
@@ -148,6 +148,7 @@ public class LoginController {
       mmallUser.setPassword(StringUtils.EMPTY);
       mmallUser.setSalt(StringUtils.EMPTY);
       mmallUser.setQuestion(StringUtils.EMPTY);
+      mmallUser.setAnswer(StringUtils.EMPTY);
       HttpSession session = request.getSession();
       //向HttpSession对象中存储数据
       session.setAttribute(CONST.CURRENT_USER, mmallUser);

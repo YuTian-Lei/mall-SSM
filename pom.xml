@@ -10,7 +10,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <modules>
-    <module>Biz</module>
+    <module>BuzService</module>
     <module>common</module>
     <module>WebManage</module>
     <module>ClientApp</module>

@@ -19,7 +19,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import java.util.Date;
 import java.util.List;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -29,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.mapper.entity.Example;
 
@@ -76,9 +76,9 @@ public class UserController {
   }
 
   @PostMapping("forgetPassword")
-  @ApiOperation(value = "获取忘记密码问题", notes = "获取忘记密码问题", httpMethod = "POST")
+  @ApiOperation(value = "获取密保问题", notes = "获取密保问题", httpMethod = "POST")
   @ApiImplicitParam(name = "username", value = "用户名", required = true, paramType = "String")
-  public Result<String> forgetPassword(String username) {
+  public Result<String> forgetPassword(@RequestParam(value = "username") String username) {
     int resultCount = mmallUserService.checkUsername(username);
     if (resultCount == 0) {
       return ResultGenerator.genFailResult("用户名不存在");
@@ -167,9 +167,9 @@ public class UserController {
         byte[] hashPassword = DigestUtils.sha1(passwordNew.trim().getBytes(), salt, 1024);
         String passWord = EncodeUtils.encodeHex(hashPassword);
         //密码加密结束
-        user.setSalt(saveSalt);
-        user.setPassword(passWord);
-        mmallUserService.update(user);
+        mmallUser.setSalt(saveSalt);
+        mmallUser.setPassword(passWord);
+        mmallUserService.update(mmallUser);
         result.setCode(ResultCode.SUCCESS);
         result.setMessage("密码更新成功");
         return  result;
@@ -209,9 +209,10 @@ public class UserController {
     updateUser.setAnswer(user.getAnswer());
     updateUser.setUpdateTime(new Date());
     mmallUserService.update(updateUser);
+    mmallUser mmallUser = mmallUserService.findById(updateUser.getId());
     result.setMessage("更新状态成功");
-    result.setData(updateUser);
-    request.getSession().setAttribute(CONST.CURRENT_USER,updateUser);
+    result.setData(mmallUser);
+    request.getSession().setAttribute(CONST.CURRENT_USER,mmallUser);
     return result;
   }
 

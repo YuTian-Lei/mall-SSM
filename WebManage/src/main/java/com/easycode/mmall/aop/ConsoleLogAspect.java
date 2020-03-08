@@ -23,14 +23,15 @@ import static java.util.stream.Collectors.joining;
 public class ConsoleLogAspect {
   //设置切面点（切面地址根据自己的项目填写）
   @Pointcut(value = "(execution(* com.easycode.mmall.controller.*.*(..)))")
-  public void webLog() {}
-
+  public void webLog() {
+  }
 
   //指定切点前的处理方法
   @Before("webLog()")
   public void doBefore(JoinPoint joinPoint) throws Exception {
     //获取request对象
-    ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+    ServletRequestAttributes attributes =
+        (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     HttpServletRequest request = attributes.getRequest();
     StringBuilder sb = new StringBuilder();
     //拼接请求内容
@@ -39,13 +40,18 @@ public class ConsoleLogAspect {
     if (request.getMethod().equalsIgnoreCase(RequestMethod.GET.name())) {
       Map<String, String[]> parameterMap = request.getParameterMap();
       Map<String, String> paramMap = new HashMap<>();
-      parameterMap.forEach((key, value) -> paramMap.put(key, Arrays.stream(value).collect(joining(","))));
+      parameterMap.forEach(
+          (key, value) -> paramMap.put(key, Arrays.stream(value).collect(joining(","))));
       sb.append("请求内容:" + JSON.toJSONString(paramMap));
     } else if (request.getMethod().equalsIgnoreCase(RequestMethod.POST.name())) {
       Object[] args = joinPoint.getArgs();
+
       StringBuilder stringBuilder = new StringBuilder();
-      Arrays.stream(args).forEach(object -> stringBuilder.append(object.toString().replace("=",":")));
-      if (stringBuilder.length() == 0){
+      if (args.length > 1) {
+        Arrays.stream(args)
+            .forEach(object -> stringBuilder.append(object.toString().replace("=", ":")));
+      }
+      if (stringBuilder.length() == 0) {
         stringBuilder.append("{}");
       }
       sb.append("请求内容:" + stringBuilder.toString());

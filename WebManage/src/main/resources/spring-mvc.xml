@@ -113,6 +113,8 @@
         /v2/api-docs = anon
         /v2/api-docs-ext = anon
         /doc.html = anon
+        /webjars/** = anon
+
         /** = authc
       </value>
     </property>

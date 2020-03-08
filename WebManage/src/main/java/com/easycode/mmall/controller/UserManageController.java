@@ -6,6 +6,9 @@ import com.easycode.mmall.model.mmallUser;
 import com.easycode.mmall.service.mmallUserService;
 import com.easycode.mmall.utils.Result;
 import com.easycode.mmall.utils.ResultGenerator;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +35,11 @@ public class UserManageController {
   private mmallUserService mmallUserService;
 
   @PostMapping("login")
+  @ApiOperation(value = "管理员登录",notes = "管理员登录")
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "username",value = "用户名",required = true,paramType = "String"),
+      @ApiImplicitParam(name = "password",value = "密码",required = true,paramType = "String")
+  })
   public Result<mmallUser> login(HttpServletRequest request, String username, String password) {
     Result result = ResultGenerator.genSuccessResult();
     UsernamePasswordToken token = new UsernamePasswordToken(username, password, false);

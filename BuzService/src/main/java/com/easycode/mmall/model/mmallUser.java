@@ -20,64 +20,61 @@ public class mmallUser extends BasePageEntity {
     /**
      * 用户名
      */
-    @NotNull(message = "用户名不能为空")
+    /*@NotNull(message = "用户名不能为空")*/
     @ApiModelProperty(name = "username",value = "用户名")
     private String username;
 
     /**
      * 用户密码，MD5加密
      */
-    @NotNull
+    /*@NotNull*/
     @ApiModelProperty(name = "password",value = "用户密码")
     private String password;
 
-    @NotNull(message = "邮箱不能为空")
-    @ApiModelProperty(name = "email",value = "邮箱")
+    /*@NotNull(message = "邮箱不能为空")*/
+    @ApiModelProperty(name = "email",value = "邮箱",required = true,dataType = "String")
     private String email;
 
-    @Null
+    /*@Null*/
     @ApiModelProperty(name = "salt",value = "盐值")
     private String salt;
 
-    @NotNull(message = "手机号不能为空")
-    @ApiModelProperty(name = "phone",value = "手机号")
+    /*@NotNull(message = "手机号不能为空")*/
+    @ApiModelProperty(name = "phone",value = "手机号",required = true,dataType = "String")
     private String phone;
 
     /**
      * 找回密码问题
      */
-    @NotNull
-    @ApiModelProperty(name = "",value = "",required = true, dataType = "")
+    /*@NotNull*/
+    @ApiModelProperty(name = "question",value = "找回密码问题",required = true, dataType = "String")
     private String question;
 
     /**
      * 找回密码答案
      */
-    @NotNull
-    @ApiModelProperty(name = "",value = "",required = true, dataType = "")
+   /* @NotNull*/
+    @ApiModelProperty(name = "answer",value = "answer",required = true, dataType = "String")
     private String answer;
 
     /**
      * 角色0-管理员,1-普通用户
      */
-    @Null
-    @ApiModelProperty(name = "",value = "",required = true, dataType = "")
+    /*@Null*/
     private Integer role;
 
     /**
      * 创建时间
      */
-    @Null
+    /*@Null*/
     @Column(name = "create_time")
-    @ApiModelProperty(name = "",value = "",required = true, dataType = "")
     private Date createTime;
 
     /**
      * 最后一次更新时间
      */
-    @Null
+    /*@Null*/
     @Column(name = "update_time")
-    @ApiModelProperty(name = "",value = "",required = true, dataType = "")
     private Date updateTime;
 
     /**

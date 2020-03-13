@@ -1,8 +1,7 @@
 package com.easycode.mmall.service;
 import com.easycode.mmall.model.User;
 import com.easycode.mmall.core.Service;
-
-
+import com.easycode.mmall.utils.Result;
 
 /**
  *
@@ -16,4 +15,6 @@ public interface UserService extends Service<User> {
   int checkEmail(String email);
 
   int checkAnswer(String username,String question,String answer);
+
+  Result checkAdminRole(User user);
 }

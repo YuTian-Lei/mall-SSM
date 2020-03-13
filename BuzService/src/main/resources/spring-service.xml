@@ -32,11 +32,11 @@
   <!--4.设置与事务有关的各种属性 -->
   <tx:advice id="txAdvice" transaction-manager="transactionManager">
     <tx:attributes>
-      <tx:method name="insert*" propagation="REQUIRED" read-only="true"/>
-      <tx:method name="add*" propagation="REQUIRED" read-only="true"/>
-      <tx:method name="update*" propagation="REQUIRED" read-only="true"/>
-      <tx:method name="del*" propagation="REQUIRED" read-only="true"/>
-      <tx:method name="*" propagation="REQUIRED"/>
+      <tx:method name="insert*" propagation="REQUIRED"/>
+      <tx:method name="add*" propagation="REQUIRED"/>
+      <tx:method name="update*" propagation="REQUIRED"/>
+      <tx:method name="del*" propagation="REQUIRED"/>
+      <tx:method name="*" propagation="REQUIRED" read-only="true"/>
     </tx:attributes>
   </tx:advice>
 

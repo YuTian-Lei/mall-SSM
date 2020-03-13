@@ -1,14 +1,14 @@
 # 项目介绍
 
 ## 项目组织结构
-- Biz：数据业务层
+- BuzService：数据业务层
 - common：通用util库
 - ClientApp：app客户端接口
 - WebManager：管理平台
 
 ## 技术集成记录
 - 通用Mapper+MYBATIS GENERATOR+PageHelper分页插件：实现单表业务零SQL
-- 通用类库guava/common-lang3
+- 通用类库guava/common-lang3/hutool
 - easyPoi（更简单的操作word/excel等等）
 - 统一响应结果封装及生成工具
 - 统一异常处理

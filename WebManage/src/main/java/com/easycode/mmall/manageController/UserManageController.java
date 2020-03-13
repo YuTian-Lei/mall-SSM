@@ -1,4 +1,4 @@
-package com.easycode.mmall.controller;
+package com.easycode.mmall.manageController;
 
 import com.easycode.mmall.Const.CONST;
 import com.easycode.mmall.Enum.ResultCode;

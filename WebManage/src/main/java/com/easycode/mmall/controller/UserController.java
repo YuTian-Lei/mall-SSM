@@ -4,8 +4,8 @@ import cn.hutool.core.lang.UUID;
 import com.easycode.mmall.Const.CONST;
 import com.easycode.mmall.Enum.ResultCode;
 import com.easycode.mmall.async.AsyncManager;
-import com.easycode.mmall.model.mmallUser;
-import com.easycode.mmall.service.mmallUserService;
+import com.easycode.mmall.model.User;
+import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.DateUtils;
 import com.easycode.mmall.utils.DigestUtils;
 import com.easycode.mmall.utils.EncodeUtils;
@@ -38,7 +38,7 @@ import tk.mybatis.mapper.entity.Example;
 public class UserController {
 
   @Autowired
-  private mmallUserService mmallUserService;
+  private UserService mmallUserService;
 
   @PostMapping("list")
   @ApiOperation(value = "获取用户列表", notes = "获取用户信息", httpMethod = "POST")
@@ -56,8 +56,8 @@ public class UserController {
       }
     });
     JsonResult jsonResult = new JsonResult();
-    List<mmallUser> mmallUserList = mmallUserService.findAll();
-    PageInfo<mmallUser> pageInfo = new PageInfo<>();
+    List<User> mmallUserList = mmallUserService.findAll();
+    PageInfo<User> pageInfo = new PageInfo<>();
     pageInfo.setList(mmallUserList);
     jsonResult.setResultCode(1);
     jsonResult.setData("page", pageInfo);
@@ -67,8 +67,8 @@ public class UserController {
 
   @PostMapping("getUserInfo")
   @ApiOperation(value = "获取当前用户信息", notes = "获取当前用户信息", httpMethod = "POST")
-  public Result<mmallUser> getUserInfo(HttpSession session) {
-    mmallUser user = (mmallUser) session.getAttribute(CONST.CURRENT_USER);
+  public Result<User> getUserInfo(HttpSession session) {
+    User user = (User) session.getAttribute(CONST.CURRENT_USER);
     if (user == null) {
       return ResultGenerator.genFailResult("用户未登录,无法获取相关信息");
     }
@@ -83,7 +83,7 @@ public class UserController {
     if (resultCount == 0) {
       return ResultGenerator.genFailResult("用户名不存在");
     }
-    mmallUser user = mmallUserService.findBy("username", username);
+    User user = mmallUserService.findBy("username", username);
     if (StringUtils.isNotBlank(user.getQuestion())) {
       return ResultGenerator.genSuccessResult(user.getQuestion());
     }
@@ -130,7 +130,7 @@ public class UserController {
     }
 
     if (StringUtils.equals(forgetToken, token)) {
-      mmallUser user = mmallUserService.findBy("username", username);
+      User user = mmallUserService.findBy("username", username);
       //密码加密开始
       byte[] salt = DigestUtils.generateSalt(8);
       String saveSalt = EncodeUtils.encodeHex(salt);
@@ -157,8 +157,8 @@ public class UserController {
   })
   public Result<String> resetPassword(HttpServletRequest request,String passwordOld, String passwordNew){
       Result result = new Result();
-      mmallUser user = (mmallUser) request.getSession().getAttribute(CONST.CURRENT_USER);
-      mmallUser mmallUser = mmallUserService.findBy("id",user.getId());
+      User user = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
+      User mmallUser = mmallUserService.findBy("id",user.getId());
       String password = EncodeUtils.encodeHex(DigestUtils.sha1(passwordOld.trim().getBytes(), EncodeUtils.decodeHex(mmallUser.getSalt()), 1024));
       if(StringUtils.equals(password,mmallUser.getPassword())){
         //密码加密开始
@@ -179,21 +179,21 @@ public class UserController {
 
   @PostMapping("updateInformation")
   @ApiOperation(value = "更新用户信息", notes = "更新用户信息")
-  public Result<mmallUser>  updateInformation(HttpServletRequest request,@Valid  mmallUser user ,BindingResult bindingResult){
+  public Result<User>  updateInformation(HttpServletRequest request,@Valid User user ,BindingResult bindingResult){
     if (bindingResult.hasErrors()) {
       String msg = bindingResult.getAllErrors().stream()
           .map(objectError -> objectError.getDefaultMessage()).reduce((s, s2) -> s + "," + s2).get();
       return ResultGenerator.genFailResult(msg);
     }
 
-    mmallUser currentUser = (mmallUser) request.getSession().getAttribute(CONST.CURRENT_USER);
+    User currentUser = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
     if(currentUser == null){
       return ResultGenerator.genFailResult("用户未登录");
     }
     user.setId(currentUser.getId());
     //username不能被更新
     Result result  = ResultGenerator.genSuccessResult();
-    Example example = new Example(mmallUser.class);
+    Example example = new Example(User.class);
     Example.Criteria criteria = example.createCriteria();
     criteria.andEqualTo("email",user.getEmail());
     criteria.andEqualTo("id",user.getId());
@@ -201,7 +201,7 @@ public class UserController {
     if(count > 0){
       return  ResultGenerator.genFailResult("email已经存在，请更换email再尝试更新");
     }
-    mmallUser updateUser = new mmallUser();
+    User updateUser = new User();
     updateUser.setId(user.getId());
     updateUser.setEmail(user.getEmail());
     updateUser.setPhone(user.getPhone());
@@ -209,7 +209,7 @@ public class UserController {
     updateUser.setAnswer(user.getAnswer());
     updateUser.setUpdateTime(new Date());
     mmallUserService.update(updateUser);
-    mmallUser mmallUser = mmallUserService.findById(updateUser.getId());
+    User mmallUser = mmallUserService.findById(updateUser.getId());
     result.setMessage("更新状态成功");
     result.setData(mmallUser);
     request.getSession().setAttribute(CONST.CURRENT_USER,mmallUser);
@@ -218,12 +218,12 @@ public class UserController {
 
   @PostMapping("getInformation")
   @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
-  public Result<mmallUser> getInformation(HttpServletRequest request){
-      mmallUser currentUser = (mmallUser) request.getSession().getAttribute(CONST.CURRENT_USER);
+  public Result<User> getInformation(HttpServletRequest request){
+      User currentUser = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
       if(currentUser == null){
         return  ResultGenerator.genFailResult("未登录，需要强制登录");
       }
-      mmallUser user = mmallUserService.findById(currentUser.getId());
+      User user = mmallUserService.findById(currentUser.getId());
       user.setPassword(StringUtils.EMPTY);
       user.setSalt(StringUtils.EMPTY);
       return ResultGenerator.genSuccessResult(user);

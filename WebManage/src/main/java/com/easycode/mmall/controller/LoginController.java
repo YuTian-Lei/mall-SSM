@@ -2,11 +2,10 @@ package com.easycode.mmall.controller;
 
 import com.easycode.mmall.Const.CONST;
 import com.easycode.mmall.Enum.ResultCode;
-import com.easycode.mmall.model.mmallUser;
-import com.easycode.mmall.service.mmallUserService;
+import com.easycode.mmall.model.User;
+import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.DigestUtils;
 import com.easycode.mmall.utils.EncodeUtils;
-import com.easycode.mmall.utils.JsonResult;
 import com.easycode.mmall.utils.Result;
 import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.vo.RegisterVO;
@@ -41,7 +40,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LoginController {
 
   @Autowired
-  private mmallUserService mmallUserService;
+  private UserService mmallUserService;
 
   @PostMapping("register")
   @ApiOperation(value = "用户注册",notes = "用户注册",httpMethod = "POST")
@@ -67,7 +66,7 @@ public class LoginController {
       return result;
     }
 
-    mmallUser mmallUser = new mmallUser();
+    User mmallUser = new User();
     //密码加密开始
     byte[] salt = DigestUtils.generateSalt(8);
     String saveSalt = EncodeUtils.encodeHex(salt);
@@ -101,7 +100,7 @@ public class LoginController {
       @ApiImplicitParam(name = "username", value = "用户名", required = true, paramType = "String"),
       @ApiImplicitParam(name = "password", value = "密码", required = true, paramType = "String")
   })
-  public Result<mmallUser> login(HttpServletRequest request, RedirectAttributes redirectAttributes,String username,String password) {
+  public Result<User> login(HttpServletRequest request, RedirectAttributes redirectAttributes,String username,String password) {
     Result result = ResultGenerator.genSuccessResult();
     UsernamePasswordToken token = new UsernamePasswordToken(username, password, false);
     Subject currentUser = SecurityUtils.getSubject();
@@ -144,7 +143,7 @@ public class LoginController {
     //验证是否登录成功
     if (currentUser.isAuthenticated()) {
       log.info("用户[" + username + "]登录认证通过(这里可以进行一些认证通过后的一些系统参数初始化操作)");
-      mmallUser mmallUser = mmallUserService.findBy("username",username);
+      User mmallUser = mmallUserService.findBy("username",username);
       mmallUser.setPassword(StringUtils.EMPTY);
       mmallUser.setSalt(StringUtils.EMPTY);
       mmallUser.setQuestion(StringUtils.EMPTY);

@@ -1,5 +1,5 @@
-import com.easycode.mmall.model.mmallUser;
-import com.easycode.mmall.service.mmallUserService;
+import com.easycode.mmall.model.User;
+import com.easycode.mmall.service.UserService;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,11 +13,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class BuzServiceTest {
 
   @Autowired
-  private mmallUserService mmallUserService;
+  private UserService mmallUserService;
 
   @Test
   public void testBuzService(){
-    List<mmallUser> mmallUserList = mmallUserService.findAll();
+    List<User> mmallUserList = mmallUserService.findAll();
     mmallUserList.forEach(mmallUser -> System.out.println(mmallUser.getUsername()));
   }
 }

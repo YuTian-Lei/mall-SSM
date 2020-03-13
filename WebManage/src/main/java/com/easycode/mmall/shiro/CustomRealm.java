@@ -1,7 +1,7 @@
 package com.easycode.mmall.shiro;
 
-import com.easycode.mmall.model.mmallUser;
-import com.easycode.mmall.service.mmallUserService;
+import com.easycode.mmall.model.User;
+import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.EncodeUtils;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CustomRealm extends AuthorizingRealm{
 
   @Autowired
-  private mmallUserService mmallUserService;
+  private UserService mmallUserService;
 
   /**
   * 登录验证
@@ -39,7 +39,7 @@ public class CustomRealm extends AuthorizingRealm{
       throw new AccountException("Null usernames are not allowed by this realm.");
     }
 
-    mmallUser user = mmallUserService.findBy("username",username);
+    User user = mmallUserService.findBy("username",username);
     if (null == user) {
       throw new UnknownAccountException("No account found for admin [" + username + "]");
     }
@@ -76,7 +76,7 @@ public class CustomRealm extends AuthorizingRealm{
      */
     log.info("后台权限校验-->CustomRealm.doGetAuthorizationInfo()");
     SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-    mmallUser user = (mmallUser) principals.getPrimaryPrincipal();
+    User user = (User) principals.getPrimaryPrincipal();
 
     //从数据库中或者缓存中获取角色数据
     Set<String> roles = new HashSet<String>();

@@ -2,8 +2,8 @@ package com.easycode.mmall.controller;
 
 import com.easycode.mmall.Const.CONST;
 import com.easycode.mmall.Enum.ResultCode;
-import com.easycode.mmall.model.mmallUser;
-import com.easycode.mmall.service.mmallUserService;
+import com.easycode.mmall.model.User;
+import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.Result;
 import com.easycode.mmall.utils.ResultGenerator;
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserManageController {
 
   @Autowired
-  private mmallUserService mmallUserService;
+  private UserService mmallUserService;
 
   @PostMapping("login")
   @ApiOperation(value = "管理员登录",notes = "管理员登录")
@@ -40,7 +40,7 @@ public class UserManageController {
       @ApiImplicitParam(name = "username",value = "用户名",required = true,paramType = "String"),
       @ApiImplicitParam(name = "password",value = "密码",required = true,paramType = "String")
   })
-  public Result<mmallUser> login(HttpServletRequest request, String username, String password) {
+  public Result<User> login(HttpServletRequest request, String username, String password) {
     Result result = ResultGenerator.genSuccessResult();
     UsernamePasswordToken token = new UsernamePasswordToken(username, password, false);
     Subject currentUser = SecurityUtils.getSubject();
@@ -83,7 +83,7 @@ public class UserManageController {
     //验证是否登录成功
     if (currentUser.isAuthenticated()) {
       log.info("用户[" + username + "]登录认证通过(这里可以进行一些认证通过后的一些系统参数初始化操作)");
-      mmallUser mmallUser = mmallUserService.findBy("username", username);
+      User mmallUser = mmallUserService.findBy("username", username);
       mmallUser.setPassword(StringUtils.EMPTY);
       mmallUser.setSalt(StringUtils.EMPTY);
       mmallUser.setQuestion(StringUtils.EMPTY);

@@ -43,7 +43,7 @@ public class CodeGenerator {
   private static final String JDBC_PASSWORD = "123456";
   private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
 
-  private static final String PROJECT_PATH = System.getProperty("user.dir") + "/Biz";//项目在硬盘上的基础路径
+  private static final String PROJECT_PATH = System.getProperty("user.dir") + "/BuzService";//项目在硬盘上的基础路径
   private static final String TEMPLATE_FILE_PATH = PROJECT_PATH + "/src/test/resources/generator/template";//模板位置
 
   private static final String JAVA_PATH = "/src/main/java"; //java文件路径
@@ -57,7 +57,13 @@ public class CodeGenerator {
   private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
 
   public static void main(String[] args) {
-    genCodeByCustomModelName("mmall_user", "mmallUser");
+    genCodeByCustomModelName("mmall_cart", "Cart");
+    genCodeByCustomModelName("mmall_category", "Category");
+    genCodeByCustomModelName("mmall_order", "Order");
+    genCodeByCustomModelName("mmall_order_item", "OrderItem");
+    genCodeByCustomModelName("mmall_pay_info", "PayInfo");
+    genCodeByCustomModelName("mmall_shipping", "Shipping");
+    genCodeByCustomModelName("mmall_product", "Product");
   }
 
   /**
@@ -83,7 +89,7 @@ public class CodeGenerator {
     genModelAndMapper(tableName, modelName);
     genService(tableName, modelName);
     //genController(tableName, modelName);
-    System.out.println(PROJECT_PATH);
+    //System.out.println(PROJECT_PATH);
   }
 
   public static void genModelAndMapper(String tableName, String modelName) {

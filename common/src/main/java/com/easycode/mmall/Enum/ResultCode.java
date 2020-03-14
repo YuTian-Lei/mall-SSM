@@ -38,13 +38,16 @@ public enum ResultCode {
   INTERNAL_SERVER_ERROR(500),
 
   UNAUTHEN(4401),
+
   UNAUTHZ(4403),
+
   SHIRO_ERR(4444),
 
   /**
    * 未注册
    */
-  UNREGISTER(4405);
+  UNREGISTER(4405),
+  NEED_LOGIN(4406);
 
   private final int code;
 

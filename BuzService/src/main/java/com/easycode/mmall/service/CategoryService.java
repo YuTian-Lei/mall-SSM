@@ -17,5 +17,5 @@ public interface CategoryService extends Service<Category> {
 
   Result<List<Category>> getChildrenParallelCategory(Integer categoryId);
 
-  Result selectCategoryAndChildrenById(Integer categoryId);
+  Result<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
 }

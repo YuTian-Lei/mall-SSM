@@ -47,7 +47,8 @@ public enum ResultCode {
    * 未注册
    */
   UNREGISTER(4405),
-  NEED_LOGIN(4406);
+  NEED_LOGIN(4406),
+  ILLEGAL_ARGUMENT(4407);
 
   private final int code;
 

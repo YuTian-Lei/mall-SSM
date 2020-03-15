@@ -115,7 +115,7 @@
         /doc.html = anon
         /webjars/** = anon
 
-        /** = anon
+        /** = authc
       </value>
     </property>
   </bean>

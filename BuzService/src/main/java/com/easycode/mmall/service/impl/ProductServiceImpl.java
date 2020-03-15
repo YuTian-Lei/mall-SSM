@@ -1,15 +1,18 @@
 package com.easycode.mmall.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import com.easycode.mmall.Const.CONST;
+import com.easycode.mmall.Enum.ResultCode;
 import com.easycode.mmall.dao.CategoryMapper;
 import com.easycode.mmall.dao.ProductMapper;
 import com.easycode.mmall.model.Category;
 import com.easycode.mmall.model.Product;
+import com.easycode.mmall.service.CategoryService;
 import com.easycode.mmall.service.ProductService;
 import com.easycode.mmall.core.AbstractService;
 import com.easycode.mmall.utils.DozerUtil;
-import com.easycode.mmall.utils.DozerUtils;
 import com.easycode.mmall.utils.PropertiesUtil;
 import com.easycode.mmall.utils.Result;
 import com.easycode.mmall.utils.ResultGenerator;
@@ -17,9 +20,12 @@ import com.easycode.mmall.vo.ProductDetailVo;
 import com.easycode.mmall.vo.ProductListVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
+import io.swagger.models.auth.In;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +47,12 @@ public class ProductServiceImpl extends AbstractService<Product> implements Prod
 
   @Autowired
   private CategoryMapper categoryMapper;
+
+  @Autowired
+  private CategoryService categoryService;
+
+  @Autowired 
+  private DozerUtil dozerUtil;
 
   @Override
   public Result saveOrUpdateProduct(Product product) {
@@ -137,6 +149,62 @@ public class ProductServiceImpl extends AbstractService<Product> implements Prod
     return ResultGenerator.genSuccessResult(pageResult);
   }
 
+  @Override
+  public Result<ProductDetailVo> getProductDetail(Integer productId){
+    if (productId == null) {
+      return ResultGenerator.genFailResult("参数不合法");
+    }
+    Product product = productMapper.selectByPrimaryKey(productId);
+    if (product == null) {
+      return ResultGenerator.genFailResult("产品已下架或者删除");
+    }
+    if(product.getStatus() != CONST.ProductStatusEnum.ON_SALE.getCode()){
+      return ResultGenerator.genFailResult("产品已下架或者删除");
+    }
+    ProductDetailVo productDetailVo = assembleProductDetailVo(product);
+    return ResultGenerator.genSuccessResult(productDetailVo);
+  }
+
+  @Override
+  public Result<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize,String orderBy){
+    if(StringUtils.isBlank(keyword) && categoryId == null){
+      return  ResultGenerator.genFailResult("参数不合法", ResultCode.ILLEGAL_ARGUMENT);
+    }
+    List<Integer> categoryIdList = Lists.newArrayList();
+
+    if(categoryId != null){
+      Category category = categoryMapper.selectByPrimaryKey(categoryId);
+      if(category == null && StringUtils.isBlank(keyword)){
+         PageHelper.startPage(pageNum,pageSize);
+         List<ProductDetailVo> productDetailVos = Lists.newArrayList();
+         PageInfo pageInfo = new PageInfo(productDetailVos);
+         return  ResultGenerator.genSuccessResult(pageInfo);
+      }
+      categoryIdList = categoryService.selectCategoryAndChildrenById(category.getId()).getData();
+    }
+    if(StringUtils.isNotBlank(keyword)){
+       keyword = new StringBuilder().append("%").append(keyword).append("%").toString();
+    }
+    PageHelper.startPage(pageNum,pageSize);
+    //排序处理
+    if(StringUtils.isNotBlank(orderBy)){
+        if(CONST.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)){
+          String[] orderByArray = orderBy.split("_");
+          PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
+        }
+    }
+    List<Product> productList = productMapper.selectByNameAndCategoryIds(StringUtils.isBlank(keyword)?null:keyword,
+        CollectionUtil.isEmpty(categoryIdList)?null:categoryIdList);
+
+    List<ProductListVo> productListVoList = productList.stream().map(product -> {
+      ProductListVo productListVo = assembleProductListVo(product);
+      return productListVo;
+    }).collect(Collectors.toList());
+    PageInfo pageResult = new PageInfo(productList);
+    pageResult.setList(productListVoList);
+    return ResultGenerator.genSuccessResult(pageResult);
+  }
+
   private ProductDetailVo assembleProductDetailVo(Product product) {
     ProductDetailVo productDetailVo = new ProductDetailVo();
     productDetailVo.setId(product.getId());
@@ -151,7 +219,7 @@ public class ProductServiceImpl extends AbstractService<Product> implements Prod
     productDetailVo.setStock(product.getStock());
 
     productDetailVo.setImageHost(
-        PropertiesUtil.getProperty("ftp.server.http.prefix", "http://img.happymmall.com"));
+        PropertiesUtil.getProperty("ftp.server.http.prefix", "http://182.92.9.232/img/"));
 
     Category category = categoryMapper.selectByPrimaryKey(product.getCategoryId());
     if (category == null) {
@@ -167,9 +235,9 @@ public class ProductServiceImpl extends AbstractService<Product> implements Prod
   }
 
   private ProductListVo assembleProductListVo(Product product) {
-    ProductListVo productListVo = DozerUtil.map(product, ProductListVo.class);
+    ProductListVo productListVo = dozerUtil.map(product, ProductListVo.class);
     productListVo.setImageHost(
-        PropertiesUtil.getProperty("ftp.server.http.prefix", "http://img.happymmall.com"));
+        PropertiesUtil.getProperty("ftp.server.http.prefix", "http://182.92.9.232/img/"));
     return productListVo;
   }
 }

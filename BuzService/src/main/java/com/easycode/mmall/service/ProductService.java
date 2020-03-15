@@ -21,4 +21,8 @@ public interface ProductService extends Service<Product> {
   Result getProductList(int pageNum,int pageSize);
 
   Result<PageInfo> searchProduct(String productName, Integer productId, int pageNum, int pageSize);
+
+  Result<ProductDetailVo> getProductDetail(Integer productId);
+
+  Result<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize,String orderBy);
 }

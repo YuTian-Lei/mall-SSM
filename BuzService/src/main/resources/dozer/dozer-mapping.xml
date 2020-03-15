@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://dozer.sourceforge.net
-          http://dozer.sourceforge.net/schema/beanmapping.xsd">
-  <mapping date-format="yyyy-MM-dd">
-    <class-a>org.zp.notes.spring.common.dozer.vo.NotSameAttributeA</class-a>
-    <class-b>org.zp.notes.spring.common.dozer.vo.NotSameAttributeB</class-b>
-    <field>
-      <a>name</a>
-      <b>value</b>
-    </field>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+  <mapping>
+    <class-a>com.easycode.mmall.model.Product</class-a>
+    <class-b>com.easycode.mmall.vo.ProductListVo</class-b>
   </mapping>
 </mappings>

@@ -18,6 +18,7 @@
   <import resource="spring-dozer.xml"/>
   <!--1.扫描service包下所有使用注解的类型 -->
   <context:component-scan base-package="com.easycode.mmall.service"/>
+  <context:component-scan base-package="com.easycode.mmall.utils"/>
 
   <!--2.开启Spring AOP注解-->
   <aop:aspectj-autoproxy/>
@@ -38,7 +39,7 @@
       <tx:method name="add*" propagation="REQUIRED"/>
       <tx:method name="update*" propagation="REQUIRED"/>
       <tx:method name="del*" propagation="REQUIRED"/>
-      <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+      <tx:method name="*" propagation="REQUIRED"/>
     </tx:attributes>
   </tx:advice>
 

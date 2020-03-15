@@ -78,7 +78,7 @@ public class CategoryServiceImpl extends AbstractService<Category> implements Ca
     }
 
     @Override
-    public Result selectCategoryAndChildrenById(Integer categoryId){
+    public Result<List<Integer>> selectCategoryAndChildrenById(Integer categoryId){
         Set<Category> categorySet = Sets.newHashSet();
         findChildCategory(categorySet,categoryId);
 

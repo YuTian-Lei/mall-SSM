@@ -24,6 +24,7 @@ public class ProductController {
   public Result<ProductDetailVo> detail(Integer productId) {
     return productService.getProductDetail(productId);
   }
+
   @GetMapping("list")
   @ApiOperation(value = "产品列表",notes = "产品列表")
   public Result list(@RequestParam(value = "keyword", required = false) String keyword,

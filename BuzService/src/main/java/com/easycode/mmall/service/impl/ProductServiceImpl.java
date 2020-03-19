@@ -179,6 +179,11 @@ public class ProductServiceImpl extends AbstractService<Product> implements Prod
          List<ProductDetailVo> productDetailVos = Lists.newArrayList();
          PageInfo pageInfo = new PageInfo(productDetailVos);
          return  ResultGenerator.genSuccessResult(pageInfo);
+      }else if(category == null){
+        PageHelper.startPage(pageNum,pageSize);
+        List<ProductDetailVo> productDetailVos = Lists.newArrayList();
+        PageInfo pageInfo = new PageInfo(productDetailVos);
+        return  ResultGenerator.genSuccessResult(pageInfo);
       }
       categoryIdList = categoryService.selectCategoryAndChildrenById(category.getId()).getData();
     }

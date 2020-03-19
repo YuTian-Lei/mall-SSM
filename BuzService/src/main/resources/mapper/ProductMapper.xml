@@ -25,17 +25,17 @@
        id, category_id, name, subtitle, main_image, price, stock, status, create_time, update_time, sub_images, detail
     </sql>
 
-  <select id="" resultMap="BaseResultMap">
+  <select id="selectByNameAndCategoryIds" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List"/>
-    FROM  mmall_product
+    FROM mmall_product
     where status = 1
     <if test="productName != null">
       and name like #{productName}
     </if>
     <if test="categoryList != null">
       and category_id in
-      <foreach item="item" index="index" open="(" separator="," close=")"  collection="categoryList">
+      <foreach item="item" index="index" open="(" separator="," close=")" collection="categoryList">
         #{item}
       </foreach>
     </if>

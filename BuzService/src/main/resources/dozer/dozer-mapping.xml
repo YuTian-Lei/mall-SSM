@@ -7,4 +7,9 @@
     <class-a>com.easycode.mmall.model.Product</class-a>
     <class-b>com.easycode.mmall.vo.ProductListVo</class-b>
   </mapping>
+
+  <mapping>
+    <class-a>com.easycode.mmall.model.Cart</class-a>
+    <class-b>com.easycode.mmall.vo.CartProductVo</class-b>
+  </mapping>
 </mappings>

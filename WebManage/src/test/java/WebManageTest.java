@@ -1,13 +1,19 @@
 import cn.hutool.core.date.DateUtil;
+import com.easycode.mmall.async.AsyncProcessor;
 import com.easycode.mmall.utils.TimerManager;
 import java.time.LocalDateTime;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import org.joda.time.DateTimeUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/*@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring-service.xml"})*/
 public class WebManageTest {
-
   @Test
   public  void testDate() throws InterruptedException {
     Boolean res = true;
@@ -34,5 +40,26 @@ public class WebManageTest {
        res = false;
     }
     count.await();
+  }
+
+  @Test
+  public  void testBigDecimal(){
+    System.out.println(0.05+0.01);
+  }
+
+
+  @Test
+  public void testAysnc(){
+    CountDownLatch countDownLatch = new CountDownLatch(1);
+    AsyncProcessor.instance().execute(()->{
+      System.out.println("测试线程" + DateUtil.now());
+      throw  new RuntimeException();
+    });
+    System.out.println(Thread.currentThread().getName() + "当前线程：" + LocalDateTime.now());
+    try {
+      countDownLatch.await();
+    } catch (InterruptedException e) {
+      System.out.println(e.getMessage());
+    }
   }
 }

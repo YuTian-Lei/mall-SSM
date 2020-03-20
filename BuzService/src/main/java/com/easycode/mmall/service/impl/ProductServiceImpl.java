@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dozer.Mapper;
 import org.joda.time.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,8 +52,8 @@ public class ProductServiceImpl extends AbstractService<Product> implements Prod
   @Autowired
   private CategoryService categoryService;
 
-  @Autowired 
-  private DozerUtil dozerUtil;
+  @Autowired
+  private  Mapper mapper;
 
   @Override
   public Result saveOrUpdateProduct(Product product) {
@@ -240,7 +241,7 @@ public class ProductServiceImpl extends AbstractService<Product> implements Prod
   }
 
   private ProductListVo assembleProductListVo(Product product) {
-    ProductListVo productListVo = dozerUtil.map(product, ProductListVo.class);
+    ProductListVo productListVo = DozerUtil.map(mapper,product, ProductListVo.class);
     productListVo.setImageHost(
         PropertiesUtil.getProperty("ftp.server.http.prefix", "http://182.92.9.232/img/"));
     return productListVo;

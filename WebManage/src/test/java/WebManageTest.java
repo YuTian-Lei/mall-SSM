@@ -1,4 +1,5 @@
 import cn.hutool.core.date.DateUtil;
+import com.easycode.mmall.async.AsyncManager;
 import com.easycode.mmall.async.AsyncProcessor;
 import com.easycode.mmall.utils.TimerManager;
 import java.time.LocalDateTime;
@@ -15,51 +16,50 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {"classpath:spring-service.xml"})*/
 public class WebManageTest {
   @Test
-  public  void testDate() throws InterruptedException {
+  public void testDate() throws InterruptedException {
     Boolean res = true;
     CountDownLatch count = new CountDownLatch(20);
     TimerManager.getInstance(1).execute(new TimerTask() {
       @Override public void run() {
-        System.out.println(Thread.currentThread().getName()+"定时任务当前执行时间:"+   DateUtil.now());
+        System.out.println(Thread.currentThread().getName() + "定时任务当前执行时间:" + DateUtil.now());
         count.countDown();
       }
-    }, TimeUnit.SECONDS,5L);
+    }, TimeUnit.SECONDS, 5L);
 
     TimerManager.getInstance(2).execute(new TimerTask() {
       @Override public void run() {
-        System.out.println(Thread.currentThread().getName()+"定时任务当前执行时间:"+   DateUtil.now());
+        System.out.println(Thread.currentThread().getName() + "定时任务当前执行时间:" + DateUtil.now());
         count.countDown();
       }
-    }, TimeUnit.SECONDS,3L);
+    }, TimeUnit.SECONDS, 3L);
 
-    while(res){
-       System.out.println(Thread.currentThread().getName() +"主线程当前执行时间:"  + DateUtil.now());
-       Thread.sleep(20300);
-       TimerManager.getInstance(1).cancel();
-       System.out.println(Thread.currentThread().getName() +"主线程取消执行时间:"  + DateUtil.now());
-       res = false;
+    while (res) {
+      System.out.println(Thread.currentThread().getName() + "主线程当前执行时间:" + DateUtil.now());
+      Thread.sleep(20300);
+      TimerManager.getInstance(1).cancel();
+      System.out.println(Thread.currentThread().getName() + "主线程取消执行时间:" + DateUtil.now());
+      res = false;
     }
     count.await();
   }
 
   @Test
-  public  void testBigDecimal(){
-    System.out.println(0.05+0.01);
+  public void testBigDecimal() {
+    System.out.println(0.05 + 0.01);
   }
 
-
   @Test
-  public void testAysnc(){
-    CountDownLatch countDownLatch = new CountDownLatch(1);
-    AsyncProcessor.instance().execute(()->{
-      System.out.println("测试线程" + DateUtil.now());
-      throw  new RuntimeException();
-    });
-    System.out.println(Thread.currentThread().getName() + "当前线程：" + LocalDateTime.now());
-    try {
-      countDownLatch.await();
-    } catch (InterruptedException e) {
-      System.out.println(e.getMessage());
+  public void testAysnc() {
+    while (true) {
+      AsyncManager.instance().execute(() -> {
+        System.out.println("测试线程" + DateUtil.now());
+        throw new NullPointerException();
+      });
+      try {
+        Thread.sleep(2000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
   }
 }

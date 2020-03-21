@@ -12,4 +12,9 @@ import com.easycode.mmall.vo.CartVo;
 public interface CartService extends Service<Cart> {
 
   Result<CartVo> add(Integer userId,Integer productId,Integer count);
+  Result<CartVo> update(Integer userId,Integer productId,Integer count);
+  Result<CartVo> deleteProduct(Integer userId,String productIds);
+  Result<CartVo> list (Integer userId);
+  Result<CartVo> selectOrUnSelect(Integer userId,Integer productId,Integer checked);
+  Result<Integer> getCartProductCount(Integer userId);
 }

@@ -17,9 +17,12 @@ import com.easycode.mmall.utils.Result;
 import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.vo.CartProductVo;
 import com.easycode.mmall.vo.CartVo;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
+import org.apache.ibatis.io.ResolverUtil;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +53,10 @@ public class CartServiceImpl extends AbstractService<Cart> implements CartServic
         if(productId == null || count == null){
             return ResultGenerator.genFailResult("参数不合法", ResultCode.ILLEGAL_ARGUMENT);
         }
+        Product product = productMapper.selectByPrimaryKey(productId);
+        if(product != null){
+            return ResultGenerator.genFailResult("不存在此产品无法添加");
+        }
         Example example = new Example(Cart.class);
         example.createCriteria()
             .andEqualTo("userId",userId)
@@ -73,6 +80,56 @@ public class CartServiceImpl extends AbstractService<Cart> implements CartServic
         CartVo cartVo = this.getCartVoLimit(userId);
         return ResultGenerator.genSuccessResult(cartVo);
     }
+
+    @Override
+    public Result<CartVo> update(Integer userId,Integer productId,Integer count){
+        if(productId == null || count == null){
+            return ResultGenerator.genFailResult("参数不合法", ResultCode.ILLEGAL_ARGUMENT);
+        }
+        Example example = new Example(Cart.class);
+        example.createCriteria()
+            .andEqualTo("userId",userId)
+            .andEqualTo("productId",productId);
+        List<Cart> cartList = cartMapper.selectByExample(example);
+        if(CollectionUtil.isNotEmpty(cartList)){
+            Cart cart = cartList.get(0);
+            cart.setQuantity(count);
+            cartMapper.updateByPrimaryKeySelective(cart);
+        }
+        CartVo cartVo = this.getCartVoLimit(userId);
+        return  ResultGenerator.genSuccessResult(cartVo);
+    }
+
+    @Override
+    public Result<CartVo> deleteProduct(Integer userId,String productIds){
+        List<String> productList = Splitter.on(",").splitToList(productIds);
+        if(CollectionUtil.isEmpty(productList)){
+            return ResultGenerator.genFailResult("参数不合法", ResultCode.ILLEGAL_ARGUMENT);
+        }
+        cartMapper.deleteByUserIdProductIds(userId,productList);
+        CartVo cartVo = this.getCartVoLimit(userId);
+        return  ResultGenerator.genSuccessResult(cartVo);
+    }
+    @Override
+    public Result<CartVo> list (Integer userId){
+        CartVo cartVo = this.getCartVoLimit(userId);
+        return  ResultGenerator.genSuccessResult(cartVo);
+    }
+
+    @Override
+    public Result<CartVo> selectOrUnSelect (Integer userId,Integer productId,Integer checked){
+        cartMapper.checkedOrUncheckedProduct(userId,productId,checked);
+        return  this.list(userId);
+    }
+
+    @Override
+    public Result<Integer> getCartProductCount(Integer userId){
+        if(userId == null){
+            return ResultGenerator.genSuccessResult(0);
+        }
+        return ResultGenerator.genSuccessResult(cartMapper.selectCartProductCount(userId));
+    }
+
 
 
     private CartVo getCartVoLimit(Integer userId){

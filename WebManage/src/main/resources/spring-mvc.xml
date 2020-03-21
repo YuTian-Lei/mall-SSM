@@ -108,6 +108,8 @@
         <!--登陆不需要拦截-->
         /login/** = anon
         /manage/user/** = anon
+        <!--购物车不拦截-->
+        /cart/** = anon
         <!--swagger2-->
         /swagger-resources = anon
         /v2/api-docs = anon

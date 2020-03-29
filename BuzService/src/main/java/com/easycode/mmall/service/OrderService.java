@@ -1,8 +1,7 @@
 package com.easycode.mmall.service;
 import com.easycode.mmall.model.Order;
 import com.easycode.mmall.core.Service;
-
-
+import com.easycode.mmall.utils.Result;
 
 /**
  *
@@ -11,4 +10,5 @@ import com.easycode.mmall.core.Service;
  */
 public interface OrderService extends Service<Order> {
 
+  Result pay(Long orderNo,Integer userId,String path);
 }

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import net.sf.ehcache.search.aggregator.Count;
 import org.joda.time.DateTimeUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,6 +61,39 @@ public class WebManageTest {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
+    }
+  }
+
+  @Test
+  public void testInterrupt(){
+    CountDownLatch countDownLatch = new CountDownLatch(1);
+    //阻塞线程
+    Thread thread1 = new Thread(()->{
+      try {
+        TimeUnit.SECONDS.sleep(5);
+      } catch (InterruptedException e) {
+        System.out.println(Thread.currentThread().getName() + "当前中断状态:"+ Thread.currentThread().isInterrupted());
+      }
+    });
+
+    //非阻塞线程
+    Thread thread2 = new Thread(()->{
+      while(!Thread.interrupted()){
+        System.out.println(Thread.currentThread().getName() + "当前中断状态:" +Thread.currentThread().isInterrupted());
+      }
+      System.out.println(Thread.currentThread().getName() + "已中断");
+      System.out.println(Thread.currentThread().getName() + "当前中断状态:" +Thread.currentThread().isInterrupted());
+    });
+
+    try {
+      thread1.start();
+      thread2.start();
+      thread1.interrupt();
+      TimeUnit.SECONDS.sleep(1);
+      thread2.interrupt();
+      countDownLatch.await();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
   }
 }

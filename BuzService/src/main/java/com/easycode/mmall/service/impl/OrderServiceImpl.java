@@ -1,6 +1,7 @@
 package com.easycode.mmall.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import com.alipay.api.AlipayResponse;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
@@ -12,10 +13,13 @@ import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.alipay.demo.trade.utils.ZxingUtils;
+import com.easycode.mmall.Const.CONST;
 import com.easycode.mmall.dao.OrderItemMapper;
 import com.easycode.mmall.dao.OrderMapper;
+import com.easycode.mmall.dao.PayInfoMapper;
 import com.easycode.mmall.model.Order;
 import com.easycode.mmall.model.OrderItem;
+import com.easycode.mmall.model.PayInfo;
 import com.easycode.mmall.service.OrderItemService;
 import com.easycode.mmall.service.OrderService;
 import com.easycode.mmall.core.AbstractService;
@@ -34,6 +38,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +62,9 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
     private OrderItemMapper orderItemMapper;
 
     @Autowired
+    private PayInfoMapper payInfoMapper;
+
+    @Override
     public Result pay(Long orderNo,Integer userId,String path){
         Map<String,String> resultMap = Maps.newHashMap();
         Example example = new Example(Order.class);
@@ -171,6 +179,55 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
                 log.error("不支持的交易状态，交易返回异常!!!");
                 return ResultGenerator.genFailResult("不支持的交易状态，交易返回异常!!!");
         }
+    }
+
+    @Override
+    public Result aliCallback(Map<String,String> params){
+        Long orderNo = Long.parseLong(params.get("out_trade_no"));
+        String tradeNo = params.get("trade_no");
+        String tradeStatus = params.get("trade_status");
+
+        Example example = new Example(Order.class);
+        example.createCriteria().andEqualTo("orderNo",orderNo);
+        List<Order> orders = orderMapper.selectByExample(example);
+        if(CollectionUtil.isEmpty(orders)){
+            return ResultGenerator.genFailResult("非本系统订单，回调忽略");
+        }
+        Order order = orders.get(0);
+        if(order.getStatus() >= CONST.OrderStatusEnum.PAID.getCode()){
+            return  ResultGenerator.genSuccessResult("支付宝重复调用");
+        }
+        if(CONST.AlipayCallBack.TRADE_STATUS_TRADE_SUCCESS.equals(tradeStatus)){
+            order.setPaymentTime(DateUtil.parse(params.get("gmt_payment")));
+            order.setStatus(CONST.OrderStatusEnum.PAID.getCode());
+            orderMapper.updateByPrimaryKeySelective(order);
+        }
+
+        PayInfo payInfo = new PayInfo();
+        payInfo.setUserId(order.getUserId());
+        payInfo.setOrderNo(order.getOrderNo());
+        payInfo.setPayPlatform(CONST.PayPlatformEnum.ALIPAY.getCode());
+        payInfo.setPlatformNumber(tradeNo);
+        payInfo.setPlatformStatus(tradeStatus);
+
+        payInfoMapper.insert(payInfo);
+        return ResultGenerator.genSuccessResult();
+
+    }
+    @Override
+    public Result queryOrderPayStatus(Integer userId,Long orderNo){
+        Example example = new Example(Order.class);
+        example.createCriteria().andEqualTo("orderNo",orderNo).andEqualTo("userId",userId);
+
+        List<Order> orderList = orderMapper.selectByExample(example);
+        if(CollectionUtil.isEmpty(orderList)){
+            return ResultGenerator.genFailResult("用户没有该订单");
+        }
+        Order order = orderList.get(0);
+        if(order.getStatus() >= CONST.OrderStatusEnum.PAID.getCode()){
+            return  ResultGenerator.genSuccessResult();
+        }
+        return  ResultGenerator.genFailResult();
     }
 
     // 简单打印应答

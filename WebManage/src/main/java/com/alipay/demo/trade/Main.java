@@ -50,6 +50,7 @@ public class Main {
         /** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
          *  Configs会读取classpath下的zfbinfo.properties文件配置信息，如果找不到该文件则确认该文件是否在classpath目录
          */
+        log.info("初始化zfbinfo.properties");
         Configs.init("zfbinfo.properties");
 
         /** 使用Configs提供的默认参数

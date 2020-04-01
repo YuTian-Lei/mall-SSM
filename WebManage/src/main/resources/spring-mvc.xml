@@ -116,6 +116,8 @@
         /v2/api-docs-ext = anon
         /doc.html = anon
         /webjars/** = anon
+        <!--alipay_callback-->
+        /order/alipay_callback = anon
 
         /** = authc
       </value>

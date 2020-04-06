@@ -49,7 +49,7 @@ public class ConsoleLogAspect {
       StringBuilder stringBuilder = new StringBuilder();
       if (args.length > 1) {
         Arrays.stream(args)
-            .forEach(object -> stringBuilder.append(object.toString().replace("=", ":")));
+            .forEach(object -> stringBuilder.append((object != null ? object.toString() : "" ).replace("=", ":")));
       }
       if (stringBuilder.length() == 0) {
         stringBuilder.append("{}");

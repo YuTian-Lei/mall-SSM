@@ -1,7 +1,14 @@
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
 import com.easycode.mmall.async.AsyncManager;
 import com.easycode.mmall.async.AsyncProcessor;
 import com.easycode.mmall.utils.TimerManager;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
@@ -95,5 +102,28 @@ public class WebManageTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+
+  @Test
+  public void testOutFile(){
+
+    try {
+      File file = new File("D:\\ojbk\\test.txt");
+     if(!FileUtil.exist(file)){
+        FileUtil.mkParentDirs(file);
+        file.createNewFile();
+      }
+      OutputStream out = new FileOutputStream(file);
+      out.write("我爱你".getBytes("UTF-8"));
+      out.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void  testInFile(){
+     InputStream in = this.getClass().getClassLoader().getResourceAsStream("zfbinfo.properties");
   }
 }

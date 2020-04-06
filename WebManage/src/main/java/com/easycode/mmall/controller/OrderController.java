@@ -17,7 +17,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,6 +33,76 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
+
+  @PostMapping("create")
+  @ApiOperation(value = "创建订单", notes = "创建订单")
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "shippingId", value = "收获地址", required = true, paramType = "int")
+  })
+  public Result create(HttpServletRequest request,Integer shippingId){
+    User user = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
+    if (user == null) {
+      return ResultGenerator.genFailResult("请登录", ResultCode.NEED_LOGIN);
+    }
+    return  orderService.createOrder(user.getId(),shippingId);
+  }
+
+
+  @PostMapping("cancel")
+  @ApiOperation(value = "取消订单", notes = "取消订单")
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, paramType = "long")
+  })
+  public Result cancel(HttpServletRequest request,Long orderNo){
+    User user = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
+    if (user == null) {
+      return ResultGenerator.genFailResult("请登录", ResultCode.NEED_LOGIN);
+    }
+    return  orderService.cancel(user.getId(),orderNo);
+  }
+
+
+
+  @PostMapping("get_order_cart_product")
+  @ApiOperation(value = "获取购物车选中商品", notes = "获取购物车选中商品")
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, paramType = "long")
+  })
+  public Result getOrderCartProduct(HttpServletRequest request,Long orderNo){
+    User user = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
+    if (user == null) {
+      return ResultGenerator.genFailResult("请登录", ResultCode.NEED_LOGIN);
+    }
+    return  orderService.getOrderCartProduct(user.getId());
+  }
+
+
+  @PostMapping("detail")
+  @ApiOperation(value = "订单详情", notes = "订单详情")
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, paramType = "long")
+  })
+  public Result detail(HttpServletRequest request,Long orderNo){
+    User user = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
+    if (user == null) {
+      return ResultGenerator.genFailResult("请登录", ResultCode.NEED_LOGIN);
+    }
+    return  orderService.getOrderDetail(user.getId(),orderNo);
+  }
+
+
+  @PostMapping("list")
+  @ApiOperation(value = "订单列表", notes = "订单列表")
+  public Result list(HttpServletRequest request,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
+    User user = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
+    if (user == null) {
+      return ResultGenerator.genFailResult("请登录", ResultCode.NEED_LOGIN);
+    }
+    return  orderService.getOrderList(user.getId(),pageNum,pageSize);
+  }
+
+
 
 
    /**

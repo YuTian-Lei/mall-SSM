@@ -118,6 +118,8 @@
         /webjars/** = anon
         <!--alipay_callback-->
         /order/alipay_callback = anon
+        <!--testController-->
+        /test/** = anon
 
         /** = authc
       </value>

@@ -168,12 +168,12 @@
   <!--org.springframework.web包下的类的日志输出-->
   <!--如果没有设置 additivity="false" ,就会导致一条日志在控制台输出两次的情况-->
   <!--additivity表示要不要使用rootLogger配置的appender进行输出-->
-  <logger name="org.springframework.web" additivity="false" level="WARN">
+  <logger name="org.springframework.web" additivity="false" level="ERROR">
     <appender-ref ref="FILE"/>
   </logger>
 
   <!--com.zgd包下的类的日志输出-->
-  <logger name="com.zgd" additivity="false" level="DEBUG">
+  <logger name="com.zgd" additivity="false" level="ERROR">
     <appender-ref ref="FILE"/>
     <!--打印控制台-->
     <appender-ref ref="CONSOLE"/>
@@ -187,7 +187,7 @@
   </logger>
 
   <!-- root级别   DEBUG -->
-  <root level="DEBUG">
+  <root level="INFO">
     <!-- 控制台输出 -->
     <appender-ref ref="CONSOLE"/>
     <appender-ref ref="FILE"/>

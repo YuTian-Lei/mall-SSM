@@ -32,6 +32,13 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+
+  <!-- 第一种静态文件映射方式，激活Tomcat的defaultServlet来处理静态文件 -->
+  <!--<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/static/**</url-pattern>
+  </servlet-mapping>-->
+
   <!-- Spring MVC 核心控制器 DispatcherServlet 配置开始 -->
   <!--配置springmvc DispatcherServlet-->
   <servlet>
@@ -76,11 +83,6 @@
   </servlet-mapping>
   <!-- Spring MVC 核心配置结束 -->
 
-  <!-- 第一种静态文件映射方式，激活Tomcat的defaultServlet来处理静态文件 -->
-  <servlet-mapping>
-    <servlet-name>default</servlet-name>
-    <url-pattern>/static/**</url-pattern>
-  </servlet-mapping>
 
   <!-- 配置  Shiro 的 Filter -->
   <filter>

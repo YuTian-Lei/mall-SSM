@@ -17,11 +17,19 @@
   <!-- 1.扫描web相关的bean -->
   <context:component-scan base-package="com.easycode.mmall"/>
 
-  <!-- 2.静态资源默认servlet配置-->
-  <!--<mvc:resources location="/static/" mapping="/static/**"/> -->
+  <!-- 2.开启SpringMVC注解模式 -->
+  <mvc:annotation-driven validator="validator">
+    <mvc:message-converters>
+      <ref bean="stringHttpMessageConverter"/>
+      <ref bean="jsonMessageConverters"/>
+    </mvc:message-converters>
+  </mvc:annotation-driven>
+
+  <!-- 3.访问静态资源-->
+  <!--<mvc:resources location="/static/" mapping="/static/**"/>-->
   <mvc:default-servlet-handler/>
 
-  <!-- 3.定义视图解析器 -->
+  <!-- 4.定义视图解析器 -->
   <bean id="internalResourceViewResolver"
       class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/"/>
@@ -30,10 +38,10 @@
     <property name="order" value="1"/>
   </bean>
 
-  <!-- 4.定义异常处理器 -->
+  <!-- 5.定义异常处理器 -->
   <bean id="exceptionResolver" class="com.easycode.mmall.exception.MyExceptionResolver"/>
 
-  <!--5.拦截器的注册-->
+  <!-- 6.拦截器的注册-->
   <mvc:interceptors>
     <mvc:interceptor>
       <mvc:mapping path="/**"/>
@@ -42,7 +50,7 @@
     </mvc:interceptor>
   </mvc:interceptors>
 
-  <!--6.自定义消息转换器的编码,解决后台传输json回前台时，中文乱码问题 -->
+  <!-- 7.自定义消息转换器的编码,解决后台传输json回前台时，中文乱码问题 -->
   <bean id="stringHttpMessageConverter"
       class="org.springframework.http.converter.StringHttpMessageConverter">
     <property name="supportedMediaTypes">
@@ -53,7 +61,7 @@
     </property>
   </bean>
 
-  <!-- 7.配置json转换器 -->
+  <!-- 8.配置json转换器 -->
   <bean id="jsonMessageConverters"
       class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
     <property name="supportedMediaTypes">
@@ -63,15 +71,7 @@
     </property>
   </bean>
 
-  <!-- 8.开启SpringMVC注解模式 -->
-  <mvc:annotation-driven validator="validator">
-    <mvc:message-converters>
-      <ref bean="stringHttpMessageConverter"/>
-      <ref bean="jsonMessageConverters"/>
-    </mvc:message-converters>
-  </mvc:annotation-driven>
-
-  <!--9.文件上传-->
+  <!-- 9.文件上传-->
   <bean id="multipartResolver"
       class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     <property name="maxUploadSize" value="10485760"/>
@@ -82,7 +82,7 @@
   <!-- 10.加载SwaggerConfig  类名改成自己创建的-->
   <bean class="com.easycode.mmall.swagger.SwaggerConfig"/>
 
-  <!--11.整合shiro权限管理框架-->
+  <!-- 11.整合shiro权限管理框架-->
   <!-- 安全管理器 -->
   <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
     <property name="realm" ref="CustomRealm"/>
@@ -98,7 +98,7 @@
   <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
     <property name="securityManager" ref="securityManager"></property>
     <!--登录页的url-->
-    <property name="loginUrl" value="login.html"/>
+    <property name="loginUrl" value="index.jsp"/>
     <!--未认证的跳转页面-->
     <property name="unauthorizedUrl" value="index.jsp"/>
     <property name="filterChainDefinitions">
@@ -120,12 +120,13 @@
         /order/alipay_callback = anon
         <!--testController-->
         /test/** = anon
+        /static/** = anon
 
         /** = authc
       </value>
     </property>
   </bean>
-  <!--12.整合HibernateValidator-->
+  <!-- 12.整合HibernateValidator-->
   <bean id="validator"
       class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
     <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>

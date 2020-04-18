@@ -1,9 +1,11 @@
 package com.easycode.mmall.interceptors;
 
 import com.alibaba.fastjson.JSON;
+import com.easycode.mmall.annotation.LoginRequired;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,9 +16,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 public class MyIntercepter implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
         //System.out.println("拦截成功");
         log.info("request:{},param:{}",httpServletRequest.getRequestURI(), JSON.toJSONString(httpServletRequest.getParameterMap()));
+
+        // 反射获取方法上的LoginRequred注解
+        HandlerMethod handlerMethod = (HandlerMethod)handler;
+        LoginRequired loginRequired = handlerMethod.getMethod().getAnnotation(LoginRequired.class);
+
+        if(loginRequired != null && loginRequired.isRequired()){
+            //需要登录
+            return false;
+        }
         return true;
     }
 

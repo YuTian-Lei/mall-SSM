@@ -3,17 +3,24 @@ package com.easycode.mmall.controller;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.easycode.mmall.annotation.LoginRequired;
 import com.easycode.mmall.model.SSEModel;
+import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.Result;
 import com.easycode.mmall.utils.ResultGenerator;
+import com.easycode.mmall.vo.QueueMap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +35,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("test")
 public class TestController {
+  @Autowired
+  private UserService userService;
 
+  private  static volatile boolean isInit = true;
+
+  @LoginRequired
   @GetMapping("path")
   public Result<Map<Object, Object>> testPath(HttpServletRequest request) {
     Map<Object, Object> map = Maps.newHashMap();
@@ -76,12 +88,31 @@ public class TestController {
   }
 
   @RequestMapping(value = "/get_data", produces = "text/event-stream;charset=UTF-8")
-  public String push() {
-    SSEModel  model = new SSEModel();
-    Map map = Maps.newHashMap();
-    map.put("username", "雷鹏飞");
-    map.put("time", DateUtil.now());
-    model.setData(map);
+  public String push() throws InterruptedException {
+    if(isInit){
+      QueueMap.userList = userService.findAll();
+      isInit = false;
+    }
+
+
+    SSEModel model = new SSEModel();
+    List list = Lists.newArrayList();
+    Map map1 = Maps.newHashMap();
+    map1.put("username", "lpf");
+    map1.put("time", DateUtil.now());
+    TimeUnit.SECONDS.sleep(2);
+    Map map2 = Maps.newHashMap();
+    map2.put("username", "ceshi1");
+    map2.put("time", DateUtil.now());
+    TimeUnit.SECONDS.sleep(2);
+    Map map3 = Maps.newHashMap();
+    map3.put("username", "ceshi2");
+    map3.put("time", DateUtil.now());
+    list.add(map1);
+    list.add(map2);
+    list.add(map3);
+
+    model.setData(QueueMap.userList);
     System.out.println(model.toString());
     //！！！注意，EventSource返回的参数必须以data:开头，"\n\n"结尾，不然onmessage方法无法执行。
     return model.toString();

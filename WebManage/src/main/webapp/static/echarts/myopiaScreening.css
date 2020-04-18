@@ -1,0 +1,156 @@
+html, body {
+	width: 100%;
+	/* height: 100%; */
+}
+body,html{
+	width:100%;
+	height:100%;
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+.page{
+	width: 100%;
+	min-height: 100%;
+	padding: 20px 0;
+	background-color: #f4f8f9;
+}
+.main{
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+.statistics{
+	width: 100%;
+	padding: 20px;
+	background-color: #fff;
+	margin-bottom: 20px;
+}
+.statistics>.title{
+	width: 100%;
+	border-bottom: 1px solid #f1f4f9;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+}
+.statistics .title>img{
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+}
+.statistics .title>label>span{
+	font-size: 16px;
+	color: #739ffe;
+	font-weight: bold;
+	margin-right: 30px;
+	vertical-align: top;
+}
+.statistics .title>label{
+	padding-right: 20px;
+	color: #818181;
+}
+/* 下拉选择区域 */
+.selectBox{
+	width: 100%;
+	overflow: hidden;
+}
+.selectBox>label{
+	width: 22%;
+	float: left;
+	margin-bottom: 30px;
+	font-size: 13px;
+}
+.selectBox>.ageBox>select{
+	width: 80px;
+}
+.selectBox>label>span{
+	color: #898989;
+}
+.selectBox>.btn{
+	width: 78%;
+	text-align: right;
+}
+.div>.btn{
+	width: 80px;
+	height: 36px;
+	text-align: center;
+	border-radius: 20px;
+	font-weight: bold;
+	font-size: 14px;
+	border: none;
+	outline: none;
+	margin-right: 20px;
+}
+.confirm{
+	background-color: #5b8ffe;
+	color: #fff;
+}
+.rest{
+	background-color: #dee9ff;
+	color: #6194fe;
+}
+.selectBox>label>select,.selectBox>label>input,.selectBox>label>div>input{
+	width: 160px;
+	background-color: #f0f5fb;
+	height: 30px;
+	border: none;
+	outline: none;
+	padding: 0 10px;
+	color: #333;
+}
+.echartsBg{
+	width: 100%;
+	background-color: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.echartsBg .selected span {
+	display: inline-block;
+	background-color: #f8f9fd;
+	margin-right: 20px;
+	padding: 5px 20px;
+	border-radius: 10px;
+	color: #a4a5a6;
+	font-size: 14px;
+	float: left;
+}
+.echartsBg .selected>.derive{
+	background-color: #5890fe;
+	color: #fff;
+	float: right;
+}
+.echartsBg .selected>.derive img{
+	vertical-align: middle;
+}
+#myopiaScreening{
+	width: 100%;
+	height: 300px;
+}
+.myopiaScreening_foot{
+	text-align: right;
+}
+.myopiaScreening_foot .text{
+	font-size: 14px;
+	color: #666;
+}
+.myopiaScreening_foot .man,.myopiaScreening_foot .girl,.myopiaScreening_foot .num{
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 20px;
+}
+.myopiaScreening_foot .man{
+	background-color: #5890FE;
+}
+.myopiaScreening_foot .num{
+	background-color: rgb(97, 160, 168);
+}
+.myopiaScreening_foot .girl{
+	background-color: #fdc85e;
+}
+.fixed-table-header{
+	background-color: #f7fbff;
+}

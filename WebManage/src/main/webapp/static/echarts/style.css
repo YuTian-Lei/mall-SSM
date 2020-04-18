@@ -1,0 +1,171 @@
+body {
+    background-color: rgba(0, 0, 0, 1);
+    position: relative;
+    min-height: 100vh;
+}
+
+.title-bg {
+    color: rgb(247, 216, 87);
+    background: rgb(17, 45, 48);
+}
+
+#map {
+    width: 60%;
+    height: calc(100vh - 200px);
+    position: absolute;
+    left: 20%;
+    top: 150px;
+}
+
+.screening-title {
+    position: absolute;
+    width: 30%;
+    left: 30px;
+    top: 0;
+    text-align: center;
+}
+
+#screening {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    width: 30%;
+    height: 30%;
+    color: #fff;
+}
+
+.people-title {
+    position: absolute;
+    width: 20%;
+    left: 30px;
+    top: 30%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#people {
+    position: absolute;
+    left: 30px;
+    top: 30%;
+    width: 20%;
+    height: 30%;
+    margin-top: 60px;
+}
+
+.progress-title {
+    position: absolute;
+    width: 20%;
+    right: 30px;
+    top: 30%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#progress {
+    position: absolute;
+    right: 30px;
+    top: 30%;
+    width: 20%;
+    height: 30%;
+    margin-top: 60px;
+}
+
+marquee {
+    height: 100%;
+}
+
+.item {
+    width: 100%;
+    color: #fff;
+    padding: 5px 0px;
+    border-bottom: 2px solid rgb(41, 245, 230);
+}
+
+.review-title {
+    position: absolute;
+    width: 30%;
+    right: 30px;
+    top: 0;
+    text-align: center;
+}
+
+#review {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    width: 30%;
+    height: 30%;
+    color: #fff;
+}
+
+.school-title {
+    position: absolute;
+    width: 20%;
+    left: 30px;
+    bottom: 30%;
+    text-align: center;
+}
+
+#school {
+    position: absolute;
+    left: 30px;
+    bottom: 0;
+    width: 20%;
+    height: 30%;
+    color: #fff;
+}
+
+.vision-title {
+    position: absolute;
+    width: 20%;
+    right: 30px;
+    bottom: 30%;
+    text-align: center;
+}
+
+#vision {
+    position: absolute;
+    right: 30px;
+    bottom: 0;
+    width: 20%;
+    height: 30%;
+    color: #fff;
+}
+
+.title {
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+    letter-spacing: 6px;
+}
+
+.datetime {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 0;
+}
+
+.online {
+    text-align: center;
+    color: rgb(80, 80, 80);
+}
+
+.online .num {
+    color: rgb(247, 216, 87);
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin: 0 5px;
+}
+
+.select_school{
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    background: rgba(11, 41, 64, 1);
+    color: #fff;
+    border: 1px solid rgba(24, 131, 184, 1);
+}
+

@@ -1,0 +1,195 @@
+html, body {
+    background-color: rgb(22, 23, 28);
+}
+
+div.title {
+    color: rgb(204, 234, 250);
+    text-align: center;
+    font-size: 24px;
+    position: relative;
+}
+
+div.title p {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    width: 280px;
+    height: 35px;
+    background-color: rgb(16, 49, 75);
+}
+
+div.title .title-bg {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.tab-class {
+    text-align: center;
+    height: 40px;
+    width: 310px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.tab-class .item {
+    font-size: 16px;
+    border: 1px solid #656565;
+    color: #656565;
+    width: 80px;
+    text-align: center;
+    border-radius: 10px;
+    float: left;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.tab-class .item.active {
+    color: #00ffff
+}
+
+.input-box {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.input-box .group {
+    float: left;
+    margin-bottom: 10px;
+}
+
+.input-box .item {
+    float: left;
+    width: 200px;
+}
+
+.input-box span {
+    width: 40px;
+    display: inline-block;
+    color: rgb(204, 234, 250);
+}
+
+.input-box span.btn {
+    width: 132px;
+    background-color: #0190d8;
+    text-align: center;
+    margin-left: 45px;
+    margin-top: 2px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+div.line {
+    width: 100%;
+    height: 1px;
+    background-color: #313236;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.charts-box {
+    width: 1210px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.charts-box .item {
+    background: url('/static/images/bg0.png') no-repeat;
+    background-size: 100% 100%;
+    width: 390px;
+    height: 300px;
+    float: left;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.charts-box .item:last-of-type {
+    margin-right: 0;
+}
+
+.last {
+    margin-bottom: 100px;
+}
+
+.charts-box .item .title {
+    color: #00ffff;
+    padding-left: 30px;
+}
+
+.charts-box .item .btn-box {
+    padding-left: 80px;
+    z-index: 999;
+    position: absolute;
+}
+
+.charts-box .item .btn-box span {
+    font-size: 12px;
+    border: 1px solid #656565;
+    color: #656565;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.charts-box .item .btn-box span.active {
+    color: #00ffff;
+    border-color: #00ffff;
+}
+
+#situation {
+    width: 100%;
+    height: 240px;
+    margin-top: -26px;
+    z-index: 10;
+}
+
+#distribution{
+    width: 100%;
+    height: 240px;
+    margin-top: -26px;
+    z-index: 10;
+}
+
+#synthetical{
+    width: 100%;
+    height: 250px;
+    margin-top: -36px;
+}
+
+#risk{
+    width: 100%;
+    height: 180px;
+}
+
+#sex{
+    width: 100%;
+    height: 250px;
+    margin-top: -36px;
+}
+
+.complete .complete-item span{
+    display: inline-block;
+    color: #0a9d98;
+    font-size: 28px;
+}
+
+.complete .complete-item .label{
+    width: 180px;
+    padding-left: 30px;
+    margin-top: 10px;
+    background-color:transparent;
+}
+
+.complete .complete-item .bg-label{
+    background-size: 100% 100%;
+    border: 1px solid #00ffff;
+    width: 140px;
+    text-align: center;
+    font-size: 24px;
+    background-color: rgba(43, 248, 248, .08);
+}

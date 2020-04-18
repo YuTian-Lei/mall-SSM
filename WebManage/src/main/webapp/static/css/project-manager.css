@@ -1,0 +1,60 @@
+/* 市维度相关CSS */
+.echarts {
+    height: 310px;
+    width: 30%;
+    float: left;
+    margin-right: 22px
+}
+
+.table {
+    width: 62%;
+    top: -232px;
+}
+
+.cus-table {
+    float: left;
+    width: 60%;
+    top: 60px;
+}
+
+.title-table {
+    font-size: 22px;
+    color: #3366ff;
+}
+
+.title-small {
+    font-size: 16px;
+    color: #3366ff;
+}
+
+.other {
+    margin-left: 30px
+}
+
+.small-value {
+    font-size: 16px;
+}
+
+.title-div {
+    margin-left: 20px;
+    border-left: 3px solid #3c8dbc;
+}
+
+.title-div > .form-group {
+    margin-left: 10px;
+}
+
+/* 区维度相关CSS */
+.regionEcharts {
+    height: 400px;
+    width: 60%;
+    float: right;
+}
+
+.region-table {
+    width: 100%;
+}
+
+/*.table-th {*/
+/*    height: 40px;*/
+/*}*/

@@ -1,0 +1,252 @@
+html, body {
+	width: 100%;
+	/* height: 100%; */
+}
+body{
+    background: url('../../images/banner.jpg') no-repeat;
+    background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+.page{
+	width: 97%;
+	margin:0 auto;
+	position: relative;
+}
+div.title {
+    color: #04fdfb;
+	font-weight: bold;
+    text-align: center;
+    font-size: 24px;
+    position: relative;
+	margin-top: 20px;
+}
+
+div.title p {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    width: 280px;
+    height: 35px;
+}
+
+div.title .title-bg {
+    width:100%;
+    margin: 0 auto;
+}
+
+.tab-class {
+        text-align: left;
+    height: 40px;
+    /* width: 310px; */
+    overflow: hidden;
+    position: absolute;
+    top: 110px;
+    left: 7px;
+
+}
+
+.tab-class .item {
+    font-size: 14px;
+    border: 1px solid #00ffff;
+    color: #fff;
+    width: 60px;
+	padding: 2px 0;
+    text-align: center;
+    border-radius: 20px;
+    float: left;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.tab-class .item.active {
+    color: #00ffff
+}
+
+.input-box {
+    width: 80%;
+    /* margin: 0 auto; */
+    margin-top: 23px;
+    overflow: hidden;
+    margin-left: 18%;
+}
+
+.input-box .group {
+    /*float: left;*/
+    margin-bottom: 10px;
+}
+.input-box .group input,.input-box .group select{
+    background-color: rgba(34, 143, 254, 0.2);
+	border-radius:5px;
+	width: 120px;
+	height: 28px;
+	border: none;
+	color: #fff;
+	text-align: center;
+	border: 1px solid rgb(18, 99, 165);
+	outline: none;
+}
+input::placeholder {
+    color: #fff;
+  }
+.input-box .group select option{
+	color: black;
+}
+.input-box .item {
+    float: left;
+	margin: 0 4px;
+}
+
+.input-box span {
+    width: 20px;
+	text-align: center;
+    display: inline-block;
+    color: rgb(34, 143, 254);
+	font-size: 12px;
+}
+
+.input-box span.btn {
+	width: 60px;
+    background-color: #0190d8;
+    text-align: center;
+    margin-left: 10px;
+    margin-top: 2px;
+    border-radius: 20px;
+    cursor: pointer;
+	height: 28px;
+	color: #fff;
+	/*line-height: 28px;*/
+}
+
+.charts-box {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.item .echartsId{
+	margin-top:20px !important;
+}
+.charts-box .item {
+    background: url(../../images/bg1.png) no-repeat;
+    background-size: 100% 100%;
+    width: 32.4%;
+    height: 280px;
+    float: left;
+    margin: 0 0.5%;
+    margin-top: 70px;
+    position: relative;
+}
+
+.charts-box .item:last-of-type {
+    margin-right: 0;
+}
+
+.last {
+    margin-bottom: 100px;
+}
+
+.charts-box .item .title {
+    color: #00ffff;
+   width: 223px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 20px;
+    background-image: url(../../images/title.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: -40px;
+	font-size: 14px;
+}
+
+.charts-box .item .btn-box {
+    padding-left: 80px;
+    z-index: 999;
+    position: absolute;
+	top:20px;
+}
+
+.charts-box .item .btn-box span {
+    font-size: 12px;
+    border: 1px solid #656565;
+    color: #656565;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.charts-box .item .btn-box span.active {
+    color: #00ffff;
+    border-color: #00ffff;
+}
+
+#situation {
+    width: 100%;
+    height: 240px;
+    margin-top: -26px;
+    z-index: 10;
+}
+
+#distribution{
+    width: 100%;
+    height: 240px;
+    margin-top: -26px;
+    z-index: 10;
+}
+
+#synthetical{
+    width: 100%;
+    height: 250px;
+    margin-top: -36px;
+}
+
+#risk{
+    width: 100%;
+    height: 180px;
+}
+
+#sex{
+    width: 100%;
+    height: 250px;
+    margin-top: -36px;
+}
+.complete{
+	margin-top: 20px;
+}
+.complete .complete-item span{
+    display: inline-block;
+    color: #fff;
+    font-size: 19px;
+}
+.complete .complete-item{
+	overflow: hidden;
+	margin: 1px 0;
+}
+.complete .complete-item .label{
+    width: 188px;
+    /*padding-left: 30px;*/
+    margin-top: 10px;
+	display: block;
+	float: left;
+    background-color:transparent;
+    text-align: left;
+
+}
+.complete .complete-item .bg-label{
+	background-color: #0190D8;
+	color: #fff;
+	font-size: 19px;
+	margin-right: 5px;
+	border-radius: 6px;
+	padding: 2px 6px;
+	display: inline-block;
+	margin-bottom: 5px;
+	margin-top: 8px;
+}

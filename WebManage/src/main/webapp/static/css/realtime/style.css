@@ -1,0 +1,255 @@
+body {
+	margin: 0;
+	padding: 0;
+    background-image: url(/static/images/realtime/realTimebg.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+    position: relative;
+    min-height: 100vh;
+}
+.box{
+	position: relative;
+	width: 100%;
+	min-height: 100vh;
+	margin-bottom: 40px;
+}
+.title-bg {
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+    color: #0ef6fa;
+    background-image: url(/static/images/realtime/title.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	text-align: left;
+}
+.peopleNum{
+	position: absolute;
+    left: 50%;
+}
+.peopleNum span:nth-child(1){
+	margin-left: -174px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.times{
+	position: relative;
+}
+.times img{
+    position: absolute;
+    left: center;
+    left: 43%;
+    width: 18px;
+    top: 7%;
+}
+.peopleNum span:nth-child(2){
+	margin-left: 140px;
+    font-size: 30px;
+    font-weight: bold;
+}
+#map {
+    width: 60%;
+    height: calc(100vh - 200px);
+    position: absolute;
+    left: 20%;
+    top: 160px;
+}
+
+.screening-title {
+    position: absolute;
+    width: 243px;
+    left: 30px;
+    top: 0;
+    text-align: left;
+	padding-left: 20px;
+}
+
+#screening {
+    position: absolute;
+    left: 30px;
+    top: 40px;
+    width: 22%;
+    height: 25%;
+    color: #fff;
+	background-image: url(/static/images/realtime/bg0.png) !important;
+	background-repeat: no-repeat !important;
+	background-size: 100% 100% !important;
+	padding: 10px;
+}
+
+.people-title {
+    position: absolute;
+    width: 245px;
+    left: 30px;
+    top: 31%;
+    text-align: left;
+    margin-top: 30px;
+	padding-left: 20px;
+}
+
+#people {
+    position: absolute;
+    left: 30px;
+    top: 32.5%;
+    width: 22%;
+    height: 25%;
+    margin-top: 60px;
+	background-image: url(/static/images/realtime/bg0.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	text-align: center;
+	padding: 10px;
+}
+
+.progress-title {
+    position: absolute;
+    width: 21.5%;
+    right: 30px;
+    top: 31%;
+    text-align: left;
+    margin-top: 30px;
+	padding-left: 20px;
+}
+
+#progress {
+    position: absolute;
+    right: 30px;
+    top: 32.5%;
+    width: 21.5%;
+    height: 25%;
+    margin-top: 60px;
+	background-image: url(/static/images/realtime/bg0.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	padding: 10px;
+}
+
+marquee {
+    height: 100%;
+}
+
+.item {
+        width: 100%;
+    color: #fff;
+    border-bottom: 1px solid rgb(41, 245, 230);
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+.review-title {
+    position: absolute;
+    width: 21.5%;
+    right: 30px;
+    top: 0;
+    text-align: left;
+	padding-left: 20px;
+}
+
+#review {
+    position: absolute;
+    right: 30px;
+    top: 40px;
+    width: 21.5%;
+    height: 25%;
+    color: #fff;
+	background-image: url(/static/images/realtime/bg0.png) !important;
+	background-repeat: no-repeat !important;
+	background-size: 100% 100% !important;
+	padding:10px;
+}
+
+.school-title {
+    position: absolute;
+    width: 20%;
+    left: 30px;
+    bottom: 27%;
+    text-align: left;
+	padding-left: 20px;
+}
+
+#school {
+    position: absolute;
+    left: 30px;
+    bottom: -2%;
+    width: 22%;
+    height: 25%;
+	padding: 10px;
+    color: #fff;
+	background-image: url(/static/images/realtime/bg0.png) !important;
+	background-size: 100% 100% !important;
+	background-repeat: no-repeat !important;
+}
+
+.vision-title {
+    position: absolute;
+    width: 21.5%;
+    right: 30px;
+    bottom: 27%;
+    text-align: left;
+	padding-left: 20px;
+}
+
+#vision {
+    position: absolute;
+    right: 30px;
+    bottom: -2%;
+    width: 21.5%;
+    height: 25%;
+    color: #fff;
+	padding: 10px;
+	background-image: url(/static/images/realtime/bg0.png) !important;
+	background-size: 100% 100% !important;
+	background-repeat: no-repeat !important;
+}
+
+.title {
+	color: #0de9ef;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 6px;
+    width: 100%;
+    background-image: url(/static/images/realtime/bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: 0;
+    padding: 19px 0;
+}
+
+.datetime {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.online {
+    text-align: center;
+    color: rgb(80, 80, 80);
+	position: relative;
+}
+
+.online span{
+    float: left;
+    display: block;
+}
+
+.online .num {
+    color: rgb(247, 216, 87);
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin: 0 5px;
+}
+
+.select_school{
+    margin: 0 auto;
+    display: block;
+    width: 240px;
+	height: 25px;
+    background: rgba(11, 41, 64, 1);
+    color: #fff;
+    border: 1px solid rgba(24, 131, 184, 1);
+}
+

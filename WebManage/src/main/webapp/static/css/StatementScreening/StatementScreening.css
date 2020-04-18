@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+.spanTitle {
+	width: 800px;
+	height: 50px;
+	font-size: 24px;
+	text-align: center;
+}
+
+.spanDiv {
+	width: 800px;
+	height: 50px;
+	font-size: 20px;
+}
+
+.spanDiv0 {
+	width: 900px;
+	height: 400px;
+	margin-left: 10%;
+	margin-top: 6%;
+}
+
+.spanDivTU {
+	width: 900px;
+	height: 400px;
+	display: none;
+	margin-left: 10%;
+	margin-top: 6%;
+}
+
+.span1 {
+	width: 250px;
+	height: 50px;
+	float: left;
+}
+
+.span2 {
+	width: 100px;
+	height: 50px;
+}
+
+.span3 {
+	width: 250px;
+	height: 50px;
+	float: right;
+}

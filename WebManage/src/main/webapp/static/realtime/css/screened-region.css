@@ -1,0 +1,62 @@
+.header .left {
+    width: 100%;
+}
+
+.container {
+    height: calc(100vh - 100px - 80px);
+    overflow: hidden;
+}
+
+.container .section {
+    height: 50%;
+    overflow: hidden;
+}
+
+.container .section .title {
+    margin: 20px 0 0 20px;
+}
+
+.container .section .echarts {
+    width: 100%;
+    height: calc(100% - 43px);
+}
+
+.small {
+    background-image: url(/static/realtime/imags/border-2.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: calc(100% - 15px);
+    width: 40%;
+    float: left;
+}
+
+.big {
+    background-image: url(/static/realtime/imags/border-2.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: calc(100% - 15px);
+    width: calc(60% - 30px);
+    float: left;
+}
+
+.bottom {
+    padding-top: 15px;
+}
+
+.bottom .echarts {
+    overflow: hidden;
+}
+
+.bottom .echarts .item {
+    width: 16.6%;
+    height: 100%;
+    float: left;
+}
+
+.bottom .big {
+    width: 100%;
+}
+
+.top .big {
+    margin-left: 30px;
+}

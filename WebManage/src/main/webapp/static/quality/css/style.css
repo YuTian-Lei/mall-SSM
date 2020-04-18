@@ -1,0 +1,196 @@
+body {
+    position: relative;
+    height: calc(100vh - 100px);
+    padding: 50px 30px;
+    background: url(/static/realtime/imags/bg.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.blue-text {
+    color: rgb(44, 252, 253);
+}
+
+div.title {
+    color: rgb(139, 201, 215);
+    font-size: 12px;
+    background-color: transparent;
+    background-image: url(/static/realtime/imags/title-bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+
+/* selet样式自定义 */
+
+select option {
+    color: #000;
+}
+
+select {
+    border: 0;
+    border-radius: 0;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    background-color: rgba(34, 143, 254, 0.2);
+    background-image: url(/static/realtime/imags/select-bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding-right: 14px;
+    height: 40px;
+    color: rgb(44, 252, 253);
+    font-size: 12px;
+    padding: 0 25px 0 12px;
+    cursor: pointer;
+}
+
+select.active {
+    color: rgb(44, 252, 253);
+}
+
+.select-box {
+    position: relative;
+    display: inline-block;
+}
+
+.select-box .icon {
+    position: absolute;
+    width: 7px;
+    height: 11px;
+    right: 10px;
+    top: 14px;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+/* 通用header */
+
+.header {
+    height: 80px;
+    /*overflow: hidden;*/
+}
+
+.header .left, .header .right {
+    float: left;
+    width: 50%;
+    height: 40px;
+    /*overflow: hidden;*/
+}
+
+.header .right {
+    height: 55px;
+}
+
+.header .left .select-box {
+    margin-right: 15px;
+    margin-left: 10px;
+}
+
+.header .right .num-box {
+    background-color: transparent;
+    background-image: url(/static/realtime/imags/num-bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 45px;
+    font-size: 12px;
+    line-height: 45px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 30px;
+    margin-right: 15px;
+    margin-left: 10px;
+}
+
+.header .right .num-box:first-of-type {
+    margin-left: 30px;
+}
+
+.header .right .num-box .label {
+    color: rgb(139, 201, 215);
+}
+
+.header .right .num-box .num {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(44, 252, 253);
+    cursor: pointer;
+}
+
+.header .right .team-box, .container .right .team-box {
+    background-color: transparent;
+    background-image: url(/static/realtime/imags/team-box-bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 55px;
+    color: rgb(139, 201, 215);
+    font-size: 12px;
+}
+
+.header .right .team-box ul li, .container .right .team-box ul li {
+    list-style: none;
+    float: left;
+    cursor: pointer;
+}
+
+.header .right .team-box ul, .container .right .team-box ul {
+    width: 94%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    margin-left: 3%;
+}
+
+.header .right .team-box ul li, .container .right .team-box ul li {
+    height: 35px;
+    line-height: 35px;
+    padding: 0 15px;
+}
+
+.header .right .team-box ul li.active, .container .right .team-box ul li.active {
+    color: rgb(44, 252, 253);
+    position: relative;
+}
+
+.header .right .team-box ul li.active::after, .container .right .team-box ul li.active::after {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    background: linear-gradient(to left, rgba(44, 252, 253, .1), rgba(44, 252, 253, 1), rgba(44, 252, 253, .1));
+    width: 100%;
+    height: 1px;
+    content: '';
+}
+
+.container .left .title-box, .container .right .title-box, .header .right .title-box {
+    background-color: transparent;
+    background-image: url(/static/realtime/imags/num-bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 45px;
+    font-size: 12px !important;
+    line-height: 45px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 30px;
+    margin-right: 15px;
+    margin-left: 10px;
+}
+
+.container .left .title-box .big, .container .right .title-box .big, .header .right .title-box .big {
+    color: rgb(44, 252, 253);
+    font-size: 16px;
+}
+
+.container .left .title-box .small, .container .right .title-box .small, .header .right .title-box .small {
+    color: rgb(139, 201, 215);
+}
+
+.mCSB_draggerRail {
+    background-color: #a3bee1 !important;;
+}
+

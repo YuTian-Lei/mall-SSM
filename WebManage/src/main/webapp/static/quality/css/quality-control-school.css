@@ -1,0 +1,172 @@
+.container {
+    height: calc(100vh - 100px - 80px);
+}
+
+.container .left {
+    width: 55%;
+    height: 100%;
+    float: left;
+}
+
+.container .left .title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.container .left .content {
+    background-image: url(/static/realtime/imags/border-1.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: calc( 100% - 43px - 20px);
+    margin-top: 20px;
+    width: calc( 100% - 30px);
+}
+
+.container .right {
+    width: 45%;
+    float: left;
+    height: calc( 100% - 65px);
+}
+
+.container .right .content {
+    height: calc( 100% - 40px);
+    background-image: url(/static/realtime/imags/border-1.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 20px;
+    margin-top: 32px;
+}
+
+.container .left .title-box {
+    margin-bottom: 10px;
+}
+
+.container .right .team-box {
+    margin-bottom: 20px;
+}
+
+.header {
+    height: 65px;
+}
+
+.header .left {
+    width: 100%;
+}
+
+.mCustomScrollBox+.mCSB_scrollTools.mCSB_scrollTools_horizontal {
+    bottom: 8px;
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: rgb(38, 167, 178);
+}
+
+.container .right .content .thead {
+    height: 50px;
+    background-color: rgb(39, 42, 57);
+    padding-left: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container .right .content .thead li {
+    color: rgb(44, 252, 253);
+    font-size: 12px;
+    float: left;
+    width: 20%;
+    list-style: none;
+    text-align: center;
+    padding-top: 10px;
+    line-height: 15px;
+    display: inline-block;
+}
+
+.container .right .content .thead li:nth-of-type(2), .container .right .content .thead li:nth-of-type(3) {
+    line-height: 50px;
+    padding-top: 0;
+}
+
+.container .right .content .thead li span {
+    color: rgb(139, 201, 215);
+}
+
+.container .right .item {
+    display: block;
+    width: calc( 20% - 2px);
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 15px;
+    float: left;
+    border-left: 1px solid rgb(39, 42, 57);
+    color: rgb(125, 144, 169);
+}
+
+.container .right .tbody {
+    height: calc( 100% - 50px);
+    border-bottom: 1px solid rgb(39, 42, 57);
+    border-left: 1px solid rgb(39, 42, 57);
+    border-right: 1px solid rgb(39, 42, 57);
+}
+
+.container .right .item li {
+    list-style: none;
+    font-size: 12px;
+    text-align: center;
+    padding: 0 5px;
+    margin-top: 15px;
+}
+
+.container .right .item li span {
+    color: rgb(139, 201, 215);
+}
+
+.container .right .item-1 {
+    border-left: 0;
+}
+
+.container .right .item-1 li {
+    margin-top: 30px;
+}
+
+.container .right .item-1 li:first-of-type {
+    margin-top: 50px;
+}
+
+.container .right .content .mCSB_scrollTools {
+    opacity: 0;
+}
+
+#bar-left {
+    width: 100%;
+    height: calc(100% - 63px);
+}
+
+.searchable-select .searchable-select-caret{
+    opacity: 0;
+}
+
+.searchable-select-holder{
+    border: 0 !important;
+    border-radius: 0 !important;
+    appearance: none !important;
+    -moz-appearance: none !important;
+    -webkit-appearance: none !important;
+    outline: none !important;
+    background-color: rgba(34, 143, 254, 0.2) !important;
+    background-image: url(/static/realtime/imags/select-bg.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 100% !important;
+    padding-right: 14px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    color: rgb(44, 252, 253) !important;
+    font-size: 12px !important;
+    padding: 0 25px 0 12px !important;
+    cursor: pointer !important;
+
+}
+.searchable-select-dropdown{
+    top: 40px  !important;
+}

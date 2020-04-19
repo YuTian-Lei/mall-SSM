@@ -1,12 +1,19 @@
 package com.easycode.mmall.controller;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.easycode.mmall.Const.CONST;
+import com.easycode.mmall.Enum.ResultCode;
 import com.easycode.mmall.annotation.LoginRequired;
 import com.easycode.mmall.async.AsyncManager;
+import com.easycode.mmall.model.Order;
+import com.easycode.mmall.model.OrderItem;
 import com.easycode.mmall.model.SSEModel;
 import com.easycode.mmall.model.User;
+import com.easycode.mmall.po.HospitalBriefMap;
 import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.DateUtils;
 import com.easycode.mmall.utils.JsonResult;
@@ -25,12 +32,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +56,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
   @Autowired
   private UserService userService;
+
+  @Autowired
+  private HospitalBriefMap hospitalBriefMap;
 
   private  static volatile boolean isInit = true;
 
@@ -96,31 +109,25 @@ public class TestController {
     return ResultGenerator.genSuccessResult(map);
   }
 
-  @LoginRequired
-  @RequestMapping(value = "/get_data", produces = "text/event-stream;charset=UTF-8")
-  public String push() throws InterruptedException {
-    if(isInit){
-      QueueMap.userList = userService.findAll();
-      isInit = false;
-    }
-    SSEModel model = new SSEModel();
-    List list = Lists.newArrayList();
-    Map map1 = Maps.newHashMap();
-    map1.put("username", "lpf");
-    map1.put("time", DateUtil.now());
-    TimeUnit.SECONDS.sleep(2);
-    Map map2 = Maps.newHashMap();
-    map2.put("username", "ceshi1");
-    map2.put("time", DateUtil.now());
-    TimeUnit.SECONDS.sleep(2);
-    Map map3 = Maps.newHashMap();
-    map3.put("username", "ceshi2");
-    map3.put("time", DateUtil.now());
-    list.add(map1);
-    list.add(map2);
-    list.add(map3);
+  @LoginRequired(isRequired = false)
+  // todo 不同用户请求不同产品阻塞队列
 
-    model.setData(QueueMap.userList);
+  @RequestMapping(value = "/get_data", produces = "text/event-stream;charset=UTF-8")
+  public String push(HttpServletRequest request) throws InterruptedException {
+    User user = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
+    if (user == null) {
+        return new SSEModel().toErrorString();
+    }
+    // todo 获取用户的阻塞队列
+    Map map = hospitalBriefMap.getMap();
+    BlockingQueue queue = (BlockingQueue)map.get(user.getId());
+    if(queue == null){
+      queue = new ArrayBlockingQueue(10);
+      map.put(user.getId(),queue);
+    }
+    List<OrderItem> orderItemList = (List<OrderItem> ) queue.take();
+    SSEModel model = new SSEModel();
+    model.setData(orderItemList);
     System.out.println(model.toString());
     //！！！注意，EventSource返回的参数必须以data:开头，"\n\n"结尾，不然onmessage方法无法执行。
     return model.toString();
@@ -142,4 +149,23 @@ public class TestController {
     log.info("日志框架测试--结束,{}", DateUtils.format(new Date()));
     return jsonResult;
   }
+
+
+
+  // todo 新增用户产品队列
+  @RequestMapping("addOrder")
+  public JsonResult addOrder(Integer id){
+    Map map = hospitalBriefMap.getMap();
+    BlockingQueue queue = (BlockingQueue)map.get(id);
+    if(queue == null){
+      queue = new ArrayBlockingQueue(10);
+      map.put(id,queue);
+    }
+    OrderItem orderItem = new OrderItem ();
+    orderItem.setUserId(id);
+    orderItem.setProductName(IdUtil.simpleUUID());
+    queue.add(Lists.newArrayList(orderItem));
+    return JsonResult.buildSuccessJsonResult();
+  }
+
 }

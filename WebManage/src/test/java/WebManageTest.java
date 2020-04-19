@@ -3,6 +3,7 @@ import cn.hutool.core.io.FileUtil;
 import com.easycode.mmall.async.AsyncManager;
 import com.easycode.mmall.async.AsyncProcessor;
 import com.easycode.mmall.utils.TimerManager;
+import com.google.common.collect.Maps;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import net.sf.ehcache.search.aggregator.Count;
@@ -125,5 +127,42 @@ public class WebManageTest {
   @Test
   public void  testInFile(){
      InputStream in = this.getClass().getClassLoader().getResourceAsStream("zfbinfo.properties");
+  }
+
+  @Test
+  public void testConcurrentHashMap(){
+    ConcurrentHashMap<Integer,String> map = new ConcurrentHashMap<>();
+
+    AsyncManager.instance().execute(()->{
+       int i = 0;
+       while (true){
+         map.put(1,Thread.currentThread().getName() + "    "+ i);
+         i++;
+         try {
+           TimeUnit.SECONDS.sleep(1);
+         } catch (InterruptedException e) {
+           e.printStackTrace();
+         }
+       }
+    });
+
+    AsyncManager.instance().execute(()->{
+      int i = 0;
+      while (true){
+        map.put(1,Thread.currentThread().getName() + "    "+ i);
+        i++;
+        try {
+          TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    });
+
+    while (true){
+      System.out.println(map.get(1));
+    }
+
+
   }
 }

@@ -128,7 +128,7 @@
   function pop() {
     if(!isEmpty()){
       var data = dequeue();
-      document.getElementById('result').innerText = data.username;
+      document.getElementById('result').innerText = data.productName;
       setTimeout(function(){
         $('#myModal').modal('show');
       }, 1500);
@@ -151,17 +151,19 @@
     //将字符串反序列化为字符串
     var dataList = $.parseJSON(event.data);
     dataList.forEach(function (data) {
-      console.info(data.username);
+      console.info(data.productName);
       enQueue(data);
     });
 
     if(!isOpenStatus()) {
       pop();
     }
-
-
   };
 
+  source.onerror = function (event) {
+    console.info("SSE连接即将中断");
+    source.close();
+  }
 
   $(function () {
     testSSE();

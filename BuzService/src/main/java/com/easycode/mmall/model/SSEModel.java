@@ -35,4 +35,6 @@ public class SSEModel {
   public String toString() {
     return "event:" + event + "retry:" + retry  + "data:" + data;
   }
+
+  public String toErrorString(){return "event:" + "error\n" + "retry:" + retry  + "data:" + data;}
 }

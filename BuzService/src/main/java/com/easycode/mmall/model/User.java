@@ -1,11 +1,13 @@
 package com.easycode.mmall.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Table(name = "mmall_user")
 @ApiModel(description = "用户信息")
@@ -68,6 +70,8 @@ public class User extends BasePageEntity {
      */
     /*@Null*/
     @Column(name = "create_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     /**
@@ -75,6 +79,8 @@ public class User extends BasePageEntity {
      */
     /*@Null*/
     @Column(name = "update_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     /**

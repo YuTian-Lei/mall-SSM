@@ -4,24 +4,33 @@ import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.easycode.mmall.annotation.LoginRequired;
+import com.easycode.mmall.async.AsyncManager;
 import com.easycode.mmall.model.SSEModel;
+import com.easycode.mmall.model.User;
 import com.easycode.mmall.service.UserService;
+import com.easycode.mmall.utils.DateUtils;
+import com.easycode.mmall.utils.JsonResult;
 import com.easycode.mmall.utils.Result;
 import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.vo.QueueMap;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import io.swagger.annotations.ApiOperation;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Author: pengfei.L
  * @Version: 1.0
  */
-
+@Slf4j
 @RestController
 @RequestMapping("test")
 public class TestController {
@@ -87,14 +96,13 @@ public class TestController {
     return ResultGenerator.genSuccessResult(map);
   }
 
+  @LoginRequired
   @RequestMapping(value = "/get_data", produces = "text/event-stream;charset=UTF-8")
   public String push() throws InterruptedException {
     if(isInit){
       QueueMap.userList = userService.findAll();
       isInit = false;
     }
-
-
     SSEModel model = new SSEModel();
     List list = Lists.newArrayList();
     Map map1 = Maps.newHashMap();
@@ -116,5 +124,22 @@ public class TestController {
     System.out.println(model.toString());
     //！！！注意，EventSource返回的参数必须以data:开头，"\n\n"结尾，不然onmessage方法无法执行。
     return model.toString();
+  }
+
+  @LoginRequired
+  @GetMapping("list")
+  @ApiOperation(value = "获取用户列表", notes = "获取用户信息", httpMethod = "POST")
+  public JsonResult getUserList(User user) {
+    log.info("日志框架测试--开始,{}", DateUtils.format(new Date()));
+    JsonResult jsonResult = new JsonResult();
+    log.info("入参非格式化:{}",user.getCreateTime());
+    log.info("入参格式化:{}",DateUtil.formatDateTime(user.getCreateTime()));
+    List<User> mmallUserList = userService.findList(user);
+    jsonResult.setResultCode(1);
+    jsonResult.setData("page", new PageInfo<>(mmallUserList));
+    log.info("出参非格式化:{}",mmallUserList.get(0).getCreateTime());
+    log.info("出参格式化:{}",DateUtil.formatDateTime(mmallUserList.get(0).getCreateTime()));
+    log.info("日志框架测试--结束,{}", DateUtils.format(new Date()));
+    return jsonResult;
   }
 }

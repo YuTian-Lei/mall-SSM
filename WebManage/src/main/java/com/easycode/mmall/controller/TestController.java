@@ -109,9 +109,8 @@ public class TestController {
     return ResultGenerator.genSuccessResult(map);
   }
 
-  @LoginRequired(isRequired = false)
+  @LoginRequired(isRequired = true)
   // todo 不同用户请求不同产品阻塞队列
-
   @RequestMapping(value = "/get_data", produces = "text/event-stream;charset=UTF-8")
   public String push(HttpServletRequest request) throws InterruptedException {
     User user = (User) request.getSession().getAttribute(CONST.CURRENT_USER);
@@ -166,6 +165,12 @@ public class TestController {
     orderItem.setProductName(IdUtil.simpleUUID());
     queue.add(Lists.newArrayList(orderItem));
     return JsonResult.buildSuccessJsonResult();
+  }
+
+  @RequestMapping("testJsonString")
+  public String testJsonString(){
+    System.out.println(JSONObject.toJSONString("testJsonString"));
+    return "{\"ok\":\"testJsonString\"}";
   }
 
 }

@@ -31,6 +31,15 @@
 </form>
 
 
+<form name="uploade_img" action="test/testDuplicaterName" method="post" enctype="multipart/form-data">
+    <input type="text" name="username"/>
+    <input type="text" name="username"/>
+    <input type="text" name="username"/>
+    <input type="text" name="username"/>
+    <input type="text" name="username"/>
+    <input type="submit" name="submit">
+</form>
+
 <!--加入模态框-->
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

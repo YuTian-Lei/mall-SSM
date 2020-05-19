@@ -14,6 +14,7 @@
     <module>common</module>
     <module>WebManage</module>
     <module>ClientApp</module>
+    <module>WxApp</module>
   </modules>
 
   <properties>

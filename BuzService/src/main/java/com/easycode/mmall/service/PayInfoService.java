@@ -1,8 +1,6 @@
 package com.easycode.mmall.service;
-import com.easycode.mmall.model.PayInfo;
 import com.easycode.mmall.core.Service;
-
-
+import com.easycode.mmall.model.PayInfo;
 
 /**
  *

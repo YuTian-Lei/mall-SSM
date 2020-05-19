@@ -1,8 +1,8 @@
 package com.easycode.mmall.service;
-import com.easycode.mmall.model.Product;
 import com.easycode.mmall.core.Service;
 import com.easycode.mmall.utils.Result;
 import com.easycode.mmall.vo.ProductDetailVo;
+import com.easycode.mmall.model.Product;
 import com.github.pagehelper.PageInfo;
 
 /**

@@ -1,7 +1,7 @@
 package com.easycode.mmall.service;
-import com.easycode.mmall.model.User;
 import com.easycode.mmall.core.Service;
 import com.easycode.mmall.utils.Result;
+import com.easycode.mmall.model.User;
 
 /**
  *

@@ -1,8 +1,8 @@
 package com.easycode.mmall.controller;
 
+import com.easycode.mmall.vo.ProductDetailVo;
 import com.easycode.mmall.service.ProductService;
 import com.easycode.mmall.utils.Result;
-import com.easycode.mmall.vo.ProductDetailVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

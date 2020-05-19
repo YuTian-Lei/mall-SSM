@@ -1,12 +1,12 @@
 package com.easycode.mmall.service.impl;
 
 import com.easycode.mmall.Const.CONST;
+import com.easycode.mmall.core.AbstractService;
 import com.easycode.mmall.dao.UserMapper;
+import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.model.User;
 import com.easycode.mmall.service.UserService;
-import com.easycode.mmall.core.AbstractService;
 import com.easycode.mmall.utils.Result;
-import com.easycode.mmall.utils.ResultGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

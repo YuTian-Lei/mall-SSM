@@ -80,7 +80,7 @@
   </bean>
 
   <!-- 10.加载SwaggerConfig  类名改成自己创建的-->
-  <bean class="com.easycode.mmall.swagger.SwaggerConfig"/>
+  <bean class="SwaggerConfig"/>
 
   <!-- 11.整合shiro权限管理框架-->
   <!-- 安全管理器 -->

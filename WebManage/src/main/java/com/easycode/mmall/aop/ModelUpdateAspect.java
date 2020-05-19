@@ -3,6 +3,7 @@ package com.easycode.mmall.aop;
 import java.lang.reflect.Method;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,6 +24,9 @@ import org.springframework.util.ReflectionUtils;
 public class ModelUpdateAspect {
   @Autowired(required = false)
   HttpServletRequest servletRequest;
+
+  @Autowired(required = false)
+  private HttpServletResponse response;
 
   // 2. PointCut表示这是一个切点，@annotation表示这个切点切到一个注解上，后面带该注解的全类名
   // 切面最主要的就是切点，所有的故事都围绕切点发生

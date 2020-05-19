@@ -1,8 +1,8 @@
 package com.easycode.mmall.service.impl;
 
 import cn.hutool.core.io.FileUtil;
-import com.easycode.mmall.service.IFileService;
 import com.easycode.mmall.utils.FTPUtil;
+import com.easycode.mmall.service.IFileService;
 import com.google.common.collect.Lists;
 import java.io.File;
 import java.io.IOException;

@@ -2,15 +2,14 @@ package com.easycode.mmall.controller;
 
 import com.easycode.mmall.Const.CONST;
 import com.easycode.mmall.Enum.ResultCode;
+import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.model.Shipping;
 import com.easycode.mmall.model.User;
 import com.easycode.mmall.service.ShippingService;
 import com.easycode.mmall.utils.Result;
-import com.easycode.mmall.utils.ResultGenerator;
 import com.github.pagehelper.PageInfo;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

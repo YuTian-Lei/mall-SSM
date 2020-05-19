@@ -1,12 +1,12 @@
 package com.easycode.mmall.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.easycode.mmall.core.AbstractService;
 import com.easycode.mmall.dao.CategoryMapper;
+import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.model.Category;
 import com.easycode.mmall.service.CategoryService;
-import com.easycode.mmall.core.AbstractService;
 import com.easycode.mmall.utils.Result;
-import com.easycode.mmall.utils.ResultGenerator;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import java.util.List;

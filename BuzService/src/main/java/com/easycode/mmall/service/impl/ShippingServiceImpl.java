@@ -1,12 +1,12 @@
 package com.easycode.mmall.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.easycode.mmall.dao.ShippingMapper;
-import com.easycode.mmall.model.Shipping;
-import com.easycode.mmall.service.ShippingService;
 import com.easycode.mmall.core.AbstractService;
+import com.easycode.mmall.dao.ShippingMapper;
 import com.easycode.mmall.utils.Result;
 import com.easycode.mmall.utils.ResultGenerator;
+import com.easycode.mmall.model.Shipping;
+import com.easycode.mmall.service.ShippingService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;

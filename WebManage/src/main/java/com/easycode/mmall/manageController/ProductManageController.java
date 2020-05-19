@@ -2,6 +2,7 @@ package com.easycode.mmall.manageController;
 
 import com.easycode.mmall.Const.CONST;
 import com.easycode.mmall.Enum.ResultCode;
+import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.model.Product;
 import com.easycode.mmall.model.User;
 import com.easycode.mmall.service.IFileService;
@@ -9,7 +10,6 @@ import com.easycode.mmall.service.ProductService;
 import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.PropertiesUtil;
 import com.easycode.mmall.utils.Result;
-import com.easycode.mmall.utils.ResultGenerator;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiOperation;
 import java.util.Map;

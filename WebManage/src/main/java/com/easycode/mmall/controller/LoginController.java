@@ -2,12 +2,12 @@ package com.easycode.mmall.controller;
 
 import com.easycode.mmall.Const.CONST;
 import com.easycode.mmall.Enum.ResultCode;
+import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.model.User;
 import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.DigestUtils;
 import com.easycode.mmall.utils.EncodeUtils;
 import com.easycode.mmall.utils.Result;
-import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.vo.RegisterVO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

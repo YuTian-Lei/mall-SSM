@@ -1,11 +1,10 @@
 package com.easycode.mmall.controller;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.easycode.mmall.utils.JsonResult;
 import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.AesCbcUtil;
-import com.easycode.mmall.utils.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

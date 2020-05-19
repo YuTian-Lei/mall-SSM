@@ -2,6 +2,7 @@ package com.easycode.mmall.utils;
 
 import com.easycode.mmall.Enum.ResultCode;
 import com.alibaba.fastjson.JSON;
+
 /**
  * 统一API响应结果封装
  * @author lpf

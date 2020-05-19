@@ -2,11 +2,11 @@ package com.easycode.mmall.manageController;
 
 import com.easycode.mmall.Const.CONST;
 import com.easycode.mmall.Enum.ResultCode;
+import com.easycode.mmall.utils.ResultGenerator;
 import com.easycode.mmall.model.User;
 import com.easycode.mmall.service.OrderService;
 import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.Result;
-import com.easycode.mmall.utils.ResultGenerator;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

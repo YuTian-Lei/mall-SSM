@@ -1,10 +1,8 @@
 package com.easycode.mmall.po;
 
-import com.easycode.mmall.model.Order;
 import com.easycode.mmall.model.OrderItem;
 import com.easycode.mmall.model.User;
 import com.easycode.mmall.service.OrderItemService;
-import com.easycode.mmall.service.OrderService;
 import com.easycode.mmall.service.UserService;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;

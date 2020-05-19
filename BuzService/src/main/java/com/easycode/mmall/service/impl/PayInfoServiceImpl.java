@@ -1,9 +1,9 @@
 package com.easycode.mmall.service.impl;
 
+import com.easycode.mmall.core.AbstractService;
 import com.easycode.mmall.dao.PayInfoMapper;
 import com.easycode.mmall.model.PayInfo;
 import com.easycode.mmall.service.PayInfoService;
-import com.easycode.mmall.core.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

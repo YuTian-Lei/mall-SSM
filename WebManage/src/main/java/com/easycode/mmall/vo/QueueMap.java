@@ -1,13 +1,7 @@
 package com.easycode.mmall.vo;
 
 import com.easycode.mmall.model.User;
-import com.easycode.mmall.service.UserService;
-import com.google.common.collect.Lists;
-import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * @Description: //TODO

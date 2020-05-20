@@ -39,14 +39,14 @@
   </bean>
 
   <!-- 5.定义异常处理器 -->
-  <bean id="exceptionResolver" class="com.easycode.mmall.exception.MyExceptionResolver"/>
+  <bean id="exceptionResolver" class="com.easycode.mmall.web.exception.MyExceptionResolver"/>
 
   <!-- 6.拦截器的注册-->
   <mvc:interceptors>
     <mvc:interceptor>
       <mvc:mapping path="/**"/>
       <!--<mvc:exclude-mapping path="/person/add"/>-->
-      <bean class="com.easycode.mmall.interceptors.MyIntercepter"/>
+      <bean class="com.easycode.mmall.web.interceptors.MyIntercepter"/>
     </mvc:interceptor>
   </mvc:interceptors>
 
@@ -80,7 +80,7 @@
   </bean>
 
   <!-- 10.加载SwaggerConfig  类名改成自己创建的-->
-  <bean class="SwaggerConfig"/>
+  <bean class="com.easycode.mmall.web.swagger.SwaggerConfig"/>
 
   <!-- 11.整合shiro权限管理框架-->
   <!-- 安全管理器 -->
@@ -88,11 +88,11 @@
     <property name="realm" ref="CustomRealm"/>
   </bean>
   <!-- 自定义域 -->
-  <bean id="CustomRealm" class="com.easycode.mmall.shiro.CustomRealm">
+  <bean id="CustomRealm" class="com.easycode.mmall.web.shiro.CustomRealm">
     <property name="credentialsMatcher" ref="credentialsMatcher"/>
   </bean>
   <!-- 自定义凭证(密码)匹配器 -->
-  <bean id="credentialsMatcher" class="com.easycode.mmall.shiro.CustomCredentialsMatcher"/>
+  <bean id="credentialsMatcher" class="com.easycode.mmall.web.shiro.CustomCredentialsMatcher"/>
 
   <!-- Shiro的web过滤器 -->
   <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

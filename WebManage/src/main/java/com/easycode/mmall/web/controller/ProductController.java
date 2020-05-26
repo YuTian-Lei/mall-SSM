@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "用户产品控制器",description = "用户产品")
+@Api(tags = "用户产品控制器",description = "用户产品")
 @RestController
 @RequestMapping("product")
 public class ProductController {

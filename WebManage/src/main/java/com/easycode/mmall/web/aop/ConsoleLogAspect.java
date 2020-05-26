@@ -23,7 +23,7 @@ import static java.util.stream.Collectors.joining;
 @Deprecated
 public class ConsoleLogAspect {
   //设置切面点（切面地址根据自己的项目填写）
-  @Pointcut(value = "(execution(* com.easycode.mmall.controller.*.*(..)))")
+  @Pointcut(value = "(execution(* com.easycode.mmall.web.controller.*.*(..)))")
   public void webLog() {
   }
 

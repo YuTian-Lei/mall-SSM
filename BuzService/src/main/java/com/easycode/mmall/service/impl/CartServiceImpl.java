@@ -51,7 +51,7 @@ public class CartServiceImpl extends AbstractService<Cart> implements CartServic
             return ResultGenerator.genFailResult("参数不合法", ResultCode.ILLEGAL_ARGUMENT);
         }
         Product product = productMapper.selectByPrimaryKey(productId);
-        if(product != null){
+        if(product == null){
             return ResultGenerator.genFailResult("不存在此产品无法添加");
         }
         Example example = new Example(Cart.class);

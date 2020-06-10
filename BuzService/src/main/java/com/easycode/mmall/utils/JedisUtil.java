@@ -16,7 +16,7 @@ import redis.clients.jedis.JedisPool;
  */
 @Component
 public class JedisUtil {
-    @Autowired
+    //Autowired
     private JedisPool jedisPool;
 
 

@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import redis.clients.jedis.Transaction;
  * @Date: 2020/6/10 15:44
  * @Author: pengfei.L
  */
+@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-service.xml"})
 public class JedisTest {
@@ -338,5 +341,40 @@ public class JedisTest {
         int soseSize = sose.get().size(); // sose.get() 会立即调用set方法
         System.out.println(foolbar);
         System.out.println(sose.get());
+    }
+
+
+    public static  boolean acquire(Jedis jedis, String lockKey, int lockTimeout){
+       log.info("分布式锁获取--开始");
+       Long setnxResult = jedis.setnx(lockKey,String.valueOf(System.currentTimeMillis() + lockTimeout));
+       if(setnxResult != null && setnxResult.intValue() == 1){
+           log.info("加锁成功,threadName:{}",Thread.currentThread().getName());
+           //设置失效时间
+           jedis.expire(lockKey,lockTimeout/1000);
+           return true;
+       }else {
+           //未获取锁,则继续判断,判断时间戳,看是否可以重置并获取到锁
+           String lockValueStr = jedis.get(lockKey);
+           if(lockValueStr == null || (lockValueStr != null && System.currentTimeMillis() > Long.valueOf(lockValueStr))){
+               String getSetResult = jedis.getSet(lockKey,String.valueOf(System.currentTimeMillis() + lockTimeout));
+               //乐观锁思想
+               if(getSetResult == null || (getSetResult != null && StringUtils.equals(lockValueStr,getSetResult))){
+                   log.info("加锁成功,threadName:{}",Thread.currentThread().getName());
+                   //设置失效时间
+                   jedis.expire(lockKey,lockTimeout/1000);
+                   return true;
+               }else{
+                   log.info("加锁失败,threadName:{}",Thread.currentThread().getName());
+                   return false;
+               }
+           }else {
+               log.info("加锁失败,threadName:{}",Thread.currentThread().getName());
+               return false;
+           }
+       }
+    }
+
+    public static void release(Jedis jedis, String lockKey){
+        jedis.del(lockKey);
     }
 }

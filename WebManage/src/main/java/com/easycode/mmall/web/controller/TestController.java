@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -154,6 +155,16 @@ public class TestController {
     return jsonResult;
   }
 
+  @GetMapping("testDateFormat")
+  @ApiOperation(value = "获取用户列表", notes = "获取用户信息", httpMethod = "POST")
+  public JsonResult testDateFormat(Date beginDate) {
+    log.info("日志框架测试--开始,{}", DateUtils.format(new Date()));
+    JsonResult jsonResult = new JsonResult();
+    log.info("入参非格式化:{}",beginDate);
+    log.info("入参格式化:{}",DateUtil.formatDateTime(beginDate));
+    jsonResult.setData("date",beginDate);
+    return jsonResult;
+  }
 
 
   // todo 新增用户产品队列

@@ -18,7 +18,7 @@
   <context:component-scan base-package="com.easycode.mmall"/>
 
   <!-- 2.开启SpringMVC注解模式 -->
-  <mvc:annotation-driven validator="validator">
+  <mvc:annotation-driven validator="validator" conversion-service="myDateConverter">
     <mvc:message-converters>
       <ref bean="stringHttpMessageConverter"/>
       <ref bean="jsonMessageConverters"/>
@@ -68,6 +68,15 @@
       <list>
         <value>application/json;charset=UTF-8</value>
       </list>
+    </property>
+    <property name="objectMapper">
+      <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+        <property name="dateFormat">
+          <bean class="java.text.SimpleDateFormat">
+            <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+          </bean>
+        </property>
+      </bean>
     </property>
   </bean>
 
@@ -130,5 +139,15 @@
   <bean id="validator"
       class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
     <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+  </bean>
+  <!-- 13.自定义全局日期转换器 -->
+  <bean id="myDateConverter"
+      class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    <property name="converters">
+      <set>
+        <bean class="com.easycode.mmall.web.conf.MyDateConverter"></bean>
+        <bean class="org.springframework.core.convert.support.StringToBooleanConverter"></bean>
+      </set>
+    </property>
   </bean>
 </beans>

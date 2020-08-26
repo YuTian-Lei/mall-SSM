@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <!-- 11.整合shiro权限管理框架-->
+  <!-- 安全管理器 -->
+  <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+    <property name="realm" ref="CustomRealm"/>
+  </bean>
+  <!-- 自定义域 -->
+  <bean id="CustomRealm" class="com.easycode.mmall.web.shiro.CustomRealm">
+    <property name="credentialsMatcher" ref="credentialsMatcher"/>
+  </bean>
+  <!-- 自定义凭证(密码)匹配器 -->
+  <bean id="credentialsMatcher" class="com.easycode.mmall.web.shiro.CustomCredentialsMatcher"/>
+
+  <!-- Shiro的web过滤器 -->
+  <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <property name="securityManager" ref="securityManager"></property>
+    <!--登录页的url-->
+    <property name="loginUrl" value="index.jsp"/>
+    <!--未认证的跳转页面-->
+    <property name="unauthorizedUrl" value="index.jsp"/>
+    <property name="filterChainDefinitions">
+      <value>
+        <!--首页不需要拦截-->
+        /index.jsp = anon
+        <!--登陆不需要拦截-->
+        /login/** = anon
+        /manage/user/** = anon
+        <!--购物车不拦截-->
+        /cart/** = anon
+        <!--swagger2-->
+        /swagger-resources = anon
+        /v2/api-docs = anon
+        /v2/api-docs-ext = anon
+        /doc.html = anon
+        /webjars/** = anon
+        <!--alipay_callback-->
+        /order/alipay_callback = anon
+        <!--testController-->
+        /test/** = anon
+        /static/** = anon
+
+        /** = authc
+      </value>
+    </property>
+  </bean>
+</beans>

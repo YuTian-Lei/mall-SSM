@@ -25,7 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-service.xml"})
 public class RedisTemplateTest {
-
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -261,5 +260,14 @@ public class RedisTemplateTest {
         if (CollectionUtils.isNotEmpty(keys)) {
             redisTemplate.delete(keys);
         }
+    }
+
+
+    /**
+     * 获得锁
+     */
+    public boolean getLock(String lockId, long millisecond) {
+        Boolean success = redisTemplate.opsForValue().setIfAbsent(lockId, "lock", millisecond, TimeUnit.MILLISECONDS);
+        return success != null && success;
     }
 }

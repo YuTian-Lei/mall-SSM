@@ -13,6 +13,7 @@
   <packaging>jar</packaging>
 
   <dependencies>
+
     <!--常用库依赖-->
     <dependency>
       <groupId>commons-codec</groupId>
@@ -93,6 +94,7 @@
       <!--<artifactId>poi-ooxml-schemas</artifactId>-->
       <!--<version>4.1.0</version>-->
     <!--</dependency>-->
+    <!-- jwt -->
   </dependencies>
 
   <build>

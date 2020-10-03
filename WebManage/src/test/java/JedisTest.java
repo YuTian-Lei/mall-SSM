@@ -26,6 +26,10 @@ import redis.clients.jedis.Transaction;
 @ContextConfiguration(locations = {"classpath:spring-service.xml"})
 public class JedisTest {
     private static Jedis jedis = new Jedis("182.92.9.232", 6379);
+    private static final String LOCK_SUCCESS = "OK";
+    private static final String SET_IF_NOT_EXIST = "NX";
+    private static final String SET_WITH_EXPIRE_TIME = "PX";
+
     static {
         jedis.auth("lpf@vivo321");
     }
@@ -376,5 +380,13 @@ public class JedisTest {
 
     public static void release(Jedis jedis, String lockKey){
         jedis.del(lockKey);
+    }
+
+    public static boolean tryGetDistributedLock(Jedis jedis, String lockKey, String requestId, int expireTime) {
+        String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+        if (LOCK_SUCCESS.equals(result)) {
+            return true;
+        }
+        return false;
     }
 }

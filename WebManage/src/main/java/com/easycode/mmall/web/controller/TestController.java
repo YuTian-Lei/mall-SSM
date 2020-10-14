@@ -10,6 +10,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.easycode.mmall.Const.CONST;
+import com.easycode.mmall.Enum.ResultCode;
 import com.easycode.mmall.utils.DateUtils;
 import com.easycode.mmall.web.utils.DownLoadFileUtil;
 import com.easycode.mmall.web.utils.ReturnUtils;
@@ -22,6 +23,7 @@ import com.easycode.mmall.model.User;
 import com.easycode.mmall.web.po.HospitalBriefMap;
 import com.easycode.mmall.service.UserService;
 import com.easycode.mmall.utils.Result;
+import com.easycode.mmall.web.vo.RegisterVO;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -38,11 +40,16 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -210,6 +217,21 @@ public class TestController {
     System.out.println(object.toJSONString());
     System.out.println(object.toString());
     return object;
+  }
+
+
+  @RequestMapping("testvalid")
+  @ResponseBody
+  public JsonResult testValid(@Valid @NotEmpty @RequestParam String message, BindingResult bindingResult){
+    JsonResult result = JsonResult.buildSuccessJsonResult();
+    if (bindingResult.hasErrors()) {
+      String msg = bindingResult.getAllErrors().stream().map(objectError -> objectError.getDefaultMessage()).reduce((s, s2) -> s + "," + s2).get();
+      result.setMessage(msg);
+      result.setResultCode(1);
+      return result;
+    }
+    System.out.println(message);
+    return result;
   }
 
 

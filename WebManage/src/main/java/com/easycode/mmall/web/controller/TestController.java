@@ -230,6 +230,7 @@ public class TestController {
       result.setResultCode(1);
       return result;
     }
+    System.out.println(message);
     return result;
   }
 

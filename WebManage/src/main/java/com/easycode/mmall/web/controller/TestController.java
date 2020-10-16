@@ -191,7 +191,8 @@ public class TestController {
   }
 
   @RequestMapping("testJsonString")
-  public String testJsonString(){
+  public String testJsonString(@RequestBody String body){
+    System.out.println(body);
     System.out.println(JSONObject.toJSONString("testJsonString"));
     return "{\"ok\":\"testJsonString\"}";
   }

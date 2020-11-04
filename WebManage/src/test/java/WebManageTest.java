@@ -1,6 +1,7 @@
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import com.easycode.mmall.async.AsyncManager;
+import com.easycode.mmall.async.AsyncProcessor;
 import com.easycode.mmall.utils.TimerManager;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +12,8 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.junit.Test;
 
 /*@RunWith(SpringJUnit4ClassRunner.class)
@@ -155,5 +158,25 @@ public class WebManageTest {
     }
 
 
+  }
+
+
+
+  @Test
+  public void runThread() throws InterruptedException {
+     CountDownLatch cout = new CountDownLatch(1);
+    for(int i = 0; i < 540; i++){
+      int finalI = i;
+      AsyncProcessor.instance().execute(()->{
+        try {
+          System.out.println("线程id:"+ finalI + "开始执行");
+          TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        System.out.println("线程id:"+ finalI + "执行完毕");
+      });
+    }
+    cout.await();
   }
 }

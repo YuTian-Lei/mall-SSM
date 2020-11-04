@@ -31,7 +31,9 @@ import io.swagger.annotations.ApiOperation;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -214,7 +216,10 @@ public class TestController {
   }
 
   @RequestMapping("testJsonParams")
-  public JSONObject testJsonParams(@RequestBody JSONObject object){
+  public JSONObject testJsonParams(@RequestParam String test,  @RequestBody JSONObject object) throws UnknownHostException {
+    String ip = Inet4Address.getLocalHost().getHostAddress();
+    System.out.println(ip);
+    System.out.println(test);
     System.out.println(object.toJSONString());
     System.out.println(object.toString());
     return object;

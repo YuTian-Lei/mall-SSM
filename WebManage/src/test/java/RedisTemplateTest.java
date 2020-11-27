@@ -270,4 +270,9 @@ public class RedisTemplateTest {
         Boolean success = redisTemplate.opsForValue().setIfAbsent(lockId, "lock", millisecond, TimeUnit.MILLISECONDS);
         return success != null && success;
     }
+
+    public boolean removeLock(String lockId) {
+        Boolean success = redisTemplate.delete(lockId);
+        return success != null && success;
+    }
 }

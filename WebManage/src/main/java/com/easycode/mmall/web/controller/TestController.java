@@ -225,6 +225,11 @@ public class TestController {
     return object;
   }
 
+  @GetMapping("testGet")
+  public String testGEt(String URL){
+    return URL;
+  }
+
 
   @RequestMapping("testvalid")
   @ResponseBody

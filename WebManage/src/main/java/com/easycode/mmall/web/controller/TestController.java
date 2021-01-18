@@ -27,6 +27,8 @@ import com.easycode.mmall.web.vo.RegisterVO;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.sun.net.httpserver.HttpContext;
+import com.sun.tools.internal.ws.wsdl.document.http.HTTPConstants;
 import io.swagger.annotations.ApiOperation;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,14 +52,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description: //TODO
@@ -199,6 +197,12 @@ public class TestController {
     return "{\"ok\":\"testJsonString\"}";
   }
 
+  @RequestMapping("testJsonStringArray")
+  public String testJsonString(@RequestBody String[] bids){
+    System.out.println(bids);
+    System.out.println(JSONObject.toJSONString("testJsonString"));
+    return "{\"ok\":\"testJsonString\"}";
+  }
 
   @RequestMapping("testDuplicaterName")
   public String  testDuplicaterName(@RequestParam("username") List<String> username){
@@ -243,6 +247,12 @@ public class TestController {
     }
     System.out.println("");
     return result;
+  }
+
+  @PostMapping(value = "testForm",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+  @ResponseBody
+  public String testForm(@RequestParam Map<String,String> map){
+    return map.toString();
   }
 
 

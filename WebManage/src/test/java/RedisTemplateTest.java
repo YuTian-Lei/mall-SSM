@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-service.xml"})
 public class RedisTemplateTest {
-    @Autowired
+    @Autowired(required = false)
     private RedisTemplate redisTemplate;
 
     @Test

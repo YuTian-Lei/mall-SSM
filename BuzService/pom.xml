@@ -207,6 +207,8 @@
           <compilerArguments>
             <extdirs>${project.basedir}/src/main/resources/lib</extdirs>
           </compilerArguments>
+          <!-- 略过测试代码的编译，不推荐 -->
+          <skip>true</skip>
         </configuration>
       </plugin>
     </plugins>

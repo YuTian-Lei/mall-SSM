@@ -2,6 +2,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import com.easycode.mmall.async.AsyncManager;
 import com.easycode.mmall.async.AsyncProcessor;
+import com.easycode.mmall.utils.BrowserUtils;
 import com.easycode.mmall.utils.TimerManager;
 
 import java.io.File;
@@ -190,5 +191,11 @@ public class WebManageTest {
         System.out.println(AsyncProcessor.instance().getPoolSize());
         TimeUnit.SECONDS.sleep(20);
         System.out.println(AsyncProcessor.instance().getPoolSize());
+    }
+
+    @Test
+    public void classLoaderTest() {
+        String test = BrowserUtils.getBrowserName("");
+        System.out.println(test);
     }
 }
